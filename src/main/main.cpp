@@ -31,6 +31,8 @@
 #include "utils.h"
 #include "scoring_function.h"
 #include <unordered_map>
+#include <chrono>
+//#include <boost/timer/timer.hpp>  // Added for measuring time
 
 struct usage_error : public std::runtime_error {
 	usage_error(const std::string& message) : std::runtime_error(message) {}
@@ -66,7 +68,9 @@ void check_occurrence(boost::program_options::variables_map& vm, boost::program_
 }
 
 int main(int argc, char* argv[]) {
+	auto start = std::chrono::steady_clock::now();
 	using namespace boost::program_options;
+//	boost::timer::auto_cpu_timer t; // Added for measuring time
 	const std::string git_version = VERSION;
 	const std::string version_string = "AutoDock Vina " + git_version;
 	const std::string error_message = "\n\n\
@@ -565,4 +569,7 @@ Thank you!\n";
 		std::cerr << "\n\nAn unknown error occurred. " << error_message;
 		return 1;
 	}
+auto end = std::chrono::steady_clock::now();
+std::chrono::duration<double> elapsed_seconds = end-start;
+std::cout << "Duration : " << elapsed_seconds.count() << "\n";
 }

@@ -5,8 +5,8 @@ $(info CPU is $(CPU))
 ifeq ($(CPU),x86_64)
   BASE=/usr
   BOOST_VERSION=
-  BOOST_INCLUDE = $(BASE)/include
-  C_PLATFORM=-static -DNDEBUG -pthread
+  BOOST_INCLUDE=$(BASE)/include
+  C_PLATFORM= -static -DNDEBUG -pthread
   GPP=g++
   C_OPTIONS= -g -std=c++14 -O3
   BOOST_LIB_VERSION=
@@ -14,7 +14,7 @@ else
   BASE=/usr
   BOOST_VERSION=
   BOOST_INCLUDE=/home/aali2/include
-  C_PLATFORM=-static -DNDEBUG -pthread
+  C_PLATFORM= -static -DNDEBUG -pthread
   GPP=g++
   #GPP=clang++
   C_OPTIONS= -g -std=c++14 -O3

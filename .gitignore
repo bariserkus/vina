@@ -5,6 +5,7 @@ build/python/vina/vina_wrapper.py
 #Vina builds
 vina
 vina_split
+sample01/vina_outSO.pdbqt
 
 #From Baris
 *.swp

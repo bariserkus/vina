@@ -70,6 +70,7 @@ public:
 		// Look for the number of cpu
 		if (cpu <= 0) {
 			unsigned num_cpus = boost::thread::hardware_concurrency();
+            std::cout << "Detected Cores: " << num_cpus << "\n";
 
 			if (num_cpus > 0) {
 				m_cpu = num_cpus;

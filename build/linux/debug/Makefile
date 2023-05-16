@@ -8,18 +8,18 @@ ifeq ($(CPU),x86_64)
   BOOST_INCLUDE = $(BASE)/include
   C_PLATFORM=-static -DNDEBUG -pthread
   GPP=g++
-  C_OPTIONS= -g -std=gnu++14 -O3
+  C_OPTIONS= -g -std=c++14 -O3
   BOOST_LIB_VERSION=
 else
   BASE=/usr
   BOOST_VERSION=
   BOOST_INCLUDE=/home/aali2/include
-  C_PLATFORM=-static -pthread
+  C_PLATFORM=-static -DNDEBUG -pthread
   GPP=g++
   #GPP=clang++
-  #C_OPTIONS= -g -DNDEBUG -std=c++14 -march=rv64g -mepi -O3 -fno-vectorize -mcpu=avispado -Rpass=loop-vectorize -Rpass-analysis=loop-vectorize 
-  C_OPTIONS= -g -DNDEBUG -std=c++14 -O3
-BOOST_LIB_VERSION=
+  C_OPTIONS= -g -std=c++14 -O3
+  #C_OPTIONS= -g -std=c++14 -O3 -march=rv64g -mepi -O3 -fno-vectorize -mcpu=avispado -Rpass=loop-vectorize -Rpass-analysis=loop-vectorize
+  BOOST_LIB_VERSION=
 endif
 
 

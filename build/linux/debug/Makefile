@@ -10,6 +10,7 @@ ifeq ($(CPU),x86_64)
   GPP=g++
   C_OPTIONS= -g -std=c++14 -O3
   BOOST_LIB_VERSION=
+  LDFLAGS = -L$(BASE)/lib -L.
 else
   BASE=/usr
   BOOST_VERSION=
@@ -20,6 +21,7 @@ else
   C_OPTIONS= -g -std=c++14 -O3
   #C_OPTIONS= -g -std=c++14 -O3 -march=rv64g -mepi -O3 -fno-vectorize -mcpu=avispado -Rpass=loop-vectorize -Rpass-analysis=loop-vectorize
   BOOST_LIB_VERSION=
+  LDFLAGS = -L$(BASE)/lib -L. -L/home/aali2/lib
 endif
 
 
@@ -41,7 +43,7 @@ C_OPTIONS+=-DVERSION=\"$(GIT_VERSION)\"
 #CC = ${GPP} ${C_PLATFORM} -ansi -pedantic -Wno-long-long ${C_OPTIONS} $(INCFLAGS)
 CC = ${GPP} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS} $(INCFLAGS)
 
-LDFLAGS = -L$(BASE)/lib -L.
+LDFLAGS = -L$(BASE)/lib -L. -L/home/aali2/lib
 
 # test if boost_thread-mt exists, this is
 # necessary as some versions of boost only

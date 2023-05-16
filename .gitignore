@@ -2,6 +2,10 @@
 build/python/vina/autodock_vina_wrap.cpp
 build/python/vina/vina_wrapper.py
 
+#Vina builds
+vina
+vina_split
+
 #From Baris
 *.swp
 

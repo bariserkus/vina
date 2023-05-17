@@ -1,0 +1,5 @@
+Wall time (sec) : 12.4841  CPU Time: 77
+Wall time (sec) : 11.7439  CPU Time (sec): 73
+Make Type : x86_64_AWall time (sec) : 11.6019  CPU Time (sec): 75
+Make Type : x86_64_A  Wall time (sec) : 11.8814  CPU Time (sec): 74
+Make Type : x86_64_A  Utilized Cores : 12  Wall time (sec) : 11.8843  CPU Time (sec): 76

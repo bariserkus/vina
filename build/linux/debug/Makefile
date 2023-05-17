@@ -21,6 +21,7 @@ ifeq ($(CPU),x86_64)
   GPP_A=g++
   C_OPTIONS_A= -g -std=c++14 -O3
   C_OPTIONS_A+=-DVERSION=\"$(GIT_VERSION)\"
+  C_OPTIONS_A+=-DMAKETYPE=\"$(CPU)_A\"
   CC_A = ${GPP_A} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_A} $(INCFLAGS)
   ########
 
@@ -28,7 +29,9 @@ ifeq ($(CPU),x86_64)
   GPP_B=icpx
   C_OPTIONS_B= -g -std=c++14 -O3
   C_OPTIONS_B+=-DVERSION=\"$(GIT_VERSION)\"
+  C_OPTIONS_B+=-DMAKETYPE=\"$(CPU)_B\"
   CC_B = ${GPP_B} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_B} $(INCFLAGS)
+  MAKETYPE = $(CPU)_B
   ########
 
   LDFLAGS= -L$(BASE)/lib -L.
@@ -40,6 +43,7 @@ else
   GPP_A=g++
   C_OPTIONS_A= -g -std=c++14 -O3
   C_OPTIONS_A+=-DVERSION=\"$(GIT_VERSION)\"
+  C_OPTIONS_A+=-DMAKETYPE=\"$(CPU)_A\"
   CC_A = ${GPP_A} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_A} $(INCFLAGS)
   #######
 
@@ -47,6 +51,7 @@ else
   GPP_B=clang++
   C_OPTIONS_B= -g -std=c++14 -O3 -march=rv64g -mepi -O3 -fno-vectorize -mcpu=avispado -Rpass=loop-vectorize -Rpass-analysis=loop-vectorize
   C_OPTIONS_B+=-DVERSION=\"$(GIT_VERSION)\"
+  C_OPTIONS_B+=-DMAKETYPE=\"$(CPU)_B\"
   CC_B = ${GPP_B} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_B} $(INCFLAGS)
   #####
 
@@ -59,6 +64,7 @@ MAINOBJ_A = A_main.o
 LIBOBJ_B = B_ad4cache.o B_cache.o B_non_cache.o B_conf_independent.o B_coords.o B_grid.o B_szv_grid.o B_model.o B_monte_carlo.o B_mutate.o B_parallel_mc.o B_parse_pdbqt.o B_quasi_newton.o B_quaternion.o B_random.o B_utils.o B_vina.o
 MAINOBJ_B = B_main.o
 
+all: vina_A
 all: vina_A vina_B
 
 A_%.o : ../../../src/lib/%.cpp
@@ -67,17 +73,18 @@ A_%.o : ../../../src/lib/%.cpp
 A_%.o : ../../../src/main/main.cpp
 	$(CC_A) -I ../../../src/lib -o $@ -c $<
 
-B_%.o : ../../../src/lib/%.cpp
-	$(CC_B) -o $@ -c $<
-
-B_%.o : ../../../src/main/main.cpp
-	$(CC_B) -I ../../../src/lib -o $@ -c $<
-
 vina_A: $(MAINOBJ_A) $(LIBOBJ_A)
 	$(CC_A) $(LDFLAGS) -o $@ $^ $(LIBS)
 
-vina_B: $(MAINOBJ_B) $(LIBOBJ_B)
-	$(CC_B) $(LDFLAGS) -o $@ $^ $(LIBS)
+#B_%.o : ../../../src/lib/%.cpp
+#	$(CC_B) -o $@ -c $<
+
+#B_%.o : ../../../src/main/main.cpp
+#	$(CC_B) -I ../../../src/lib -o $@ -c $<
+
+#vina_B: $(MAINOBJ_B) $(LIBOBJ_B)
+#	$(CC_B) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 clean:
 	rm -f *.o
+	rm -f vina_A vina_B

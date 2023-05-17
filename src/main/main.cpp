@@ -32,6 +32,10 @@
 #include "scoring_function.h"
 #include <unordered_map>
 #include <chrono>
+#include <ctime>
+#include "../lib/file.h"
+#include "../lib/common.h"
+#include <boost/filesystem/path.hpp> // typedef'ed
 //#include <boost/timer/timer.hpp>  // Added for measuring time
 
 struct usage_error : public std::runtime_error {
@@ -68,10 +72,12 @@ void check_occurrence(boost::program_options::variables_map& vm, boost::program_
 }
 
 int main(int argc, char* argv[]) {
+    clock_t t1 = clock();
 	auto start = std::chrono::steady_clock::now();
 	using namespace boost::program_options;
 //	boost::timer::auto_cpu_timer t; // Added for measuring time
-	const std::string git_version = VERSION;
+    const std::string make_type = MAKETYPE;
+    const std::string git_version = VERSION;
 	const std::string version_string = "AutoDock Vina " + git_version;
 	const std::string error_message = "\n\n\
 Please report bugs through the Issue Tracker on GitHub \n\
@@ -123,6 +129,7 @@ Thank you!\n";
 		std::vector<std::string> batch_ligand_names;
 		std::string maps;
 		std::string sf_name = "vina";
+        std::string out_time_name;
 		double center_x;
 		double center_y;
 		double center_z;
@@ -257,10 +264,14 @@ Thank you!\n";
 			("help_advanced", bool_switch(&help_advanced), "display usage summary with advanced options")
 			("version",       bool_switch(&version), "display program version")
 		;
-		options_description desc, desc_config, desc_simple;
-		desc       .add(inputs).add(search_area).add(outputs).add(advanced).add(misc).add(config).add(info);
-		desc_config.add(inputs).add(search_area).add(outputs).add(advanced).add(misc);
-		desc_simple.add(inputs).add(search_area).add(outputs).add(misc).add(config).add(info);
+        options_description outtime("Output Time (optional)");
+        outtime.add_options()
+                ("out_time", value<std::string>(&out_time_name), "output wall time and CPU time, the default is chosen based on the CPU and Make option type")
+        ;
+        options_description desc, desc_config, desc_simple;
+		desc       .add(inputs).add(search_area).add(outputs).add(advanced).add(misc).add(config).add(info).add(outtime);
+		desc_config.add(inputs).add(search_area).add(outputs).add(advanced).add(misc).add(outtime);
+		desc_simple.add(inputs).add(search_area).add(outputs).add(misc).add(config).add(info).add(outtime);
 
 		std::cout << version_string << '\n';
 		try {
@@ -536,6 +547,21 @@ Thank you!\n";
 				std::cout << "Failed to parse " << failed_ligand_parsing << " ligands.\n";
 			}
 		}
+
+        auto end = std::chrono::steady_clock::now();
+        std::chrono::duration<double> elapsed_seconds = end-start;
+        std::cout << "Wall Time : " << elapsed_seconds.count() <<  " seconds" << "\n";
+        clock_t t2 = clock();
+        double cpu_time = (t2-t1)/CLOCKS_PER_SEC;
+        std::cout << "CPU Time : " << cpu_time << " seconds" << "\n";
+        std::cout << "Make Type : " << MAKETYPE << "\n";
+
+        if (vm.count("out_time")){
+            std::cout << "Output file:" << out_time_name << "\n";
+            path p(out_time_name);
+            ofile out(p, std::ios_base::app);
+            out << "Make Type : " << MAKETYPE << "  Utilized Cores : " << v.get_used_cpu() << "  Wall time (sec) : " <<  elapsed_seconds.count() << "  CPU Time (sec): " << cpu_time << "\n";
+        }
 	}
 
 	catch(pdbqt_parse_error& e) {
@@ -572,7 +598,6 @@ Thank you!\n";
 		std::cerr << "\n\nAn unknown error occurred. " << error_message;
 		return 1;
 	}
-auto end = std::chrono::steady_clock::now();
-std::chrono::duration<double> elapsed_seconds = end-start;
-std::cout << "Duration : " << elapsed_seconds.count() << "\n";
+
+
 }

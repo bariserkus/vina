@@ -11,14 +11,14 @@ ifeq ($(CPU),x86_64)
   BOOST_INCLUDE=$(BASE)/include
   GPP=g++
   C_OPTIONS= -g -std=c++14 -O3
-  LDFLAGS = -L$(BASE)/lib -L.
+  LDFLAGS= -L$(BASE)/lib -L.
 else
   BOOST_INCLUDE=/home/aali2/include
   GPP=g++
   #GPP=clang++
   C_OPTIONS= -g -std=c++14 -O3
   #C_OPTIONS= -g -std=c++14 -O3 -march=rv64g -mepi -O3 -fno-vectorize -mcpu=avispado -Rpass=loop-vectorize -Rpass-analysis=loop-vectorize
-  LDFLAGS = -L$(BASE)/lib -L. -L/home/aali2/lib
+  LDFLAGS= -L$(BASE)/lib -L. -L/home/aali2/lib
 endif
 
 LIBOBJ = ad4cache.o cache.o non_cache.o conf_independent.o coords.o grid.o szv_grid.o model.o monte_carlo.o mutate.o parallel_mc.o parse_pdbqt.o quasi_newton.o quaternion.o random.o utils.o vina.o
@@ -44,13 +44,10 @@ endif
 .SUFFIXES: .cpp .o
 
 %.o : ../../../src/lib/%.cpp
-	$(CC) $(CFLAGS) -o $@ -c $<
-
-%.o : ../../../src/design/%.cpp
-	$(CC) $(CFLAGS) -I ../../../src/lib -o $@ -c $<
+	$(CC) -o $@ -c $<
 
 %.o : ../../../src/main/%.cpp
-	$(CC) $(CFLAGS) -I ../../../src/lib -o $@ -c $<
+	$(CC) -I ../../../src/lib -o $@ -c $<
 
 all: vina
 

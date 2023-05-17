@@ -395,6 +395,9 @@ Thank you!\n";
 
 		Vina v(sf_name, cpu, seed, verbosity, no_refine);
 
+        std::cout << "Max. CPU Cores: " << v.get_max_cpu() << "\n";
+        std::cout << "Utilized Cores: " << v.get_used_cpu() << "\n";
+
 		// rigid_name variable can be ignored for AD4
 		if (vm.count("receptor") || vm.count("flex"))
 			v.set_receptor(rigid_name, flex_name);

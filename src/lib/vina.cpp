@@ -1034,6 +1034,14 @@ void Vina::global_search(const int exhaustiveness, const int n_poses, const doub
 	m_poses = poses;
 }
 
+unsigned Vina::get_max_cpu() {
+    return num_cpus;
+}
+
+int Vina::get_used_cpu() {
+    return m_cpu;
+}
+
 Vina::~Vina() {
 	//OpenBabel::OBMol m_mol;
 	// model and poses

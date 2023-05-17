@@ -1,10 +1,15 @@
-receptor= 2bxa.pdbqt
-ligand= SO.pdbqt
-center_x= 4.053
-center_y= -8.352
-center_z= 6.468
-size_x= 40
-size_y= 40
-size_z= 40
-out= vina_outSO.pdbqt
-exhaustiveness= 8
+receptor = 3zfe_nwl.pdbqt
+ligand = sa6.pdbqt
+
+out = out.pdbqt
+
+center_x = 94.129
+center_y = 183.885
+center_z = 559.953
+
+size_x = 40
+size_y = 40
+size_z = 40
+
+exhaustiveness = 12
+

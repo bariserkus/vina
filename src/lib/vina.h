@@ -67,11 +67,10 @@ public:
 		m_no_refine = no_refine;
 		m_progress_callback = progress_callback;
 
-		// Look for the number of cpu
-		if (cpu <= 0) {
-			unsigned num_cpus = boost::thread::hardware_concurrency();
-            std::cout << "Detected Cores: " << num_cpus << "\n";
+        // Look for the available number of cpus
+        num_cpus = boost::thread::hardware_concurrency();
 
+		if (cpu <= 0) {
 			if (num_cpus > 0) {
 				m_cpu = num_cpus;
 			} else {
@@ -138,6 +137,8 @@ public:
 	void write_maps(const std::string& map_prefix="receptor", const std::string& gpf_filename="NULL",
 					    const std::string& fld_filename="NULL", const std::string& receptor_filename="NULL");
 	void show_score(const std::vector<double> energies);
+    unsigned get_max_cpu();
+    int get_used_cpu();
 
 private:
 	// model and poses
@@ -164,6 +165,7 @@ private:
 	// others
 	int m_verbosity;
 	bool m_no_refine;
+    unsigned num_cpus;
 	std::function<void(double)>* m_progress_callback;
 
 	std::string vina_remarks(output_type& pose, fl lb, fl ub);

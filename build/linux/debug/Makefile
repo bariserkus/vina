@@ -15,9 +15,9 @@ CPU:=$(shell uname -p)
 $(info CPU is $(CPU))
 ifeq ($(CPU),x86_64)
   BOOST_INCLUDE=$(BASE)/include
+  INCFLAGS = -I $(BOOST_INCLUDE)
 
   #First Built:
-  INCFLAGS = -I $(BOOST_INCLUDE)
   GPP_A=g++
   C_OPTIONS_A= -g -std=c++14 -O3
   C_OPTIONS_A+=-DVERSION=\"$(GIT_VERSION)\"
@@ -25,7 +25,6 @@ ifeq ($(CPU),x86_64)
   ########
 
   #Second Built:
-  INCFLAGS = -I $(BOOST_INCLUDE)
   GPP_B=icpx
   C_OPTIONS_B= -g -std=c++14 -O3
   C_OPTIONS_B+=-DVERSION=\"$(GIT_VERSION)\"
@@ -35,15 +34,22 @@ ifeq ($(CPU),x86_64)
   LDFLAGS= -L$(BASE)/lib -L.
 else
   BOOST_INCLUDE=/home/aali2/include
+  INCFLAGS = -I $(BOOST_INCLUDE)
 
   #First Built:
-  GPP=g++
-  #GPP=clang++
-  C_OPTIONS= -g -std=c++14 -O3
-  #C_OPTIONS= -g -std=c++14 -O3 -march=rv64g -mepi -O3 -fno-vectorize -mcpu=avispado -Rpass=loop-vectorize -Rpass-analysis=loop-vectorize
-  INCFLAGS = -I $(BOOST_INCLUDE)
-  C_OPTIONS+=-DVERSION=\"$(GIT_VERSION)\"
-  CC = ${GPP} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS} $(INCFLAGS)
+  GPP_A=g++
+  C_OPTIONS_A= -g -std=c++14 -O3
+  C_OPTIONS_A+=-DVERSION=\"$(GIT_VERSION)\"
+  CC_A = ${GPP_A} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_A} $(INCFLAGS)
+  #######
+
+  #Second Built:
+  GPP_B=clang++
+  C_OPTIONS_B= -g -std=c++14 -O3 -march=rv64g -mepi -O3 -fno-vectorize -mcpu=avispado -Rpass=loop-vectorize -Rpass-analysis=loop-vectorize
+  C_OPTIONS_B+=-DVERSION=\"$(GIT_VERSION)\"
+  CC_B = ${GPP_B} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_B} $(INCFLAGS)
+  #####
+
   LDFLAGS= -L$(BASE)/lib -L. -L/home/aali2/lib
 endif
 
@@ -57,18 +63,14 @@ all: vina_A vina_B
 
 A_%.o : ../../../src/lib/%.cpp
 	$(CC_A) -o $@ -c $<
-#	$(CC_B) -o $@ -c $<
 
 A_%.o : ../../../src/main/main.cpp
 	$(CC_A) -I ../../../src/lib -o $@ -c $<
-#	$(CC_B) -I ../../../src/lib -o $@ -c $<
 
 B_%.o : ../../../src/lib/%.cpp
-#	$(CC_A) -o $@ -c $<
 	$(CC_B) -o $@ -c $<
 
 B_%.o : ../../../src/main/main.cpp
-#	$(CC_A) -I ../../../src/lib -o $@ -c $<
 	$(CC_B) -I ../../../src/lib -o $@ -c $<
 
 vina_A: $(MAINOBJ_A) $(LIBOBJ_A)
@@ -76,7 +78,6 @@ vina_A: $(MAINOBJ_A) $(LIBOBJ_A)
 
 vina_B: $(MAINOBJ_B) $(LIBOBJ_B)
 	$(CC_B) $(LDFLAGS) -o $@ $^ $(LIBS)
-
 
 clean:
 	rm -f *.o

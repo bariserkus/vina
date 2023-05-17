@@ -42,7 +42,8 @@
 
 #include "macros.h"
 
-typedef double fl;
+//typedef float fl;
+typedef FLTYPE fl; // get the fl type from Makefile
 
 template<typename T>
 T sqr(T x) {

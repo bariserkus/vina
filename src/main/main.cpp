@@ -73,6 +73,11 @@ void check_occurrence(boost::program_options::variables_map& vm, boost::program_
 
 int main(int argc, char* argv[]) {
     clock_t t1 = clock();
+    time_t current_time = time(0);
+    char* date_time_c = ctime(&current_time);
+    std::string date_time = date_time_c;
+    date_time.pop_back();
+    fl for_id_type = 0.0;
 	auto start = std::chrono::steady_clock::now();
 	using namespace boost::program_options;
 //	boost::timer::auto_cpu_timer t; // Added for measuring time
@@ -264,7 +269,7 @@ Thank you!\n";
 			("help_advanced", bool_switch(&help_advanced), "display usage summary with advanced options")
 			("version",       bool_switch(&version), "display program version")
 		;
-        options_description outtime("Output Time (optional)");
+        options_description outtime("Output Time (optional)"); // Added by BE.
         outtime.add_options()
                 ("out_time", value<std::string>(&out_time_name), "output wall time and CPU time, the default is chosen based on the CPU and Make option type")
         ;
@@ -406,8 +411,10 @@ Thank you!\n";
 
 		Vina v(sf_name, cpu, seed, verbosity, no_refine);
 
-        std::cout << "Max. CPU Cores: " << v.get_max_cpu() << "\n";
-        std::cout << "Utilized Cores: " << v.get_used_cpu() << "\n";
+        std::cout << "Max. CPU Cores : " << v.get_max_cpu() << "\n";
+        std::cout << "Utilized Cores : " << v.get_used_cpu() << "\n";
+        std::cout << "Floating Point : " << typeid(for_id_type).name() <<"\n";
+
 
 		// rigid_name variable can be ignored for AD4
 		if (vm.count("receptor") || vm.count("flex"))
@@ -548,6 +555,7 @@ Thank you!\n";
 			}
 		}
 
+        // Added by BE
         auto end = std::chrono::steady_clock::now();
         std::chrono::duration<double> elapsed_seconds = end-start;
         std::cout << "Wall Time : " << elapsed_seconds.count() <<  " seconds" << "\n";
@@ -555,12 +563,20 @@ Thank you!\n";
         double cpu_time = (t2-t1)/CLOCKS_PER_SEC;
         std::cout << "CPU Time : " << cpu_time << " seconds" << "\n";
         std::cout << "Make Type : " << MAKETYPE << "\n";
+        std::cout << "Current Time and Date : " << date_time << "\n";
+
 
         if (vm.count("out_time")){
-            std::cout << "Output file:" << out_time_name << "\n";
+            std::cout << "Output file : " << out_time_name << "\n";
             path p(out_time_name);
             ofile out(p, std::ios_base::app);
-            out << "Make Type : " << MAKETYPE << "  Utilized Cores : " << v.get_used_cpu() << "  Wall time (sec) : " <<  elapsed_seconds.count() << "  CPU Time (sec): " << cpu_time << "\n";
+            out << "Make Type : " << MAKETYPE <<
+            " : Floating Point : " << typeid(for_id_type).name() <<
+            " : Utilized Cores : " << v.get_used_cpu() <<
+            " : Max. Cores : " << v.get_max_cpu() <<
+            " : Wall time (sec) : " <<  elapsed_seconds.count() <<
+            " : CPU Time (sec) : " << cpu_time <<
+            " : Date and Time : " <<  date_time << "\n";
         }
 	}
 

@@ -1,0 +1,15 @@
+Make Type : x86_64_A : Floating Point : d : Utilized Cores : 10 : Max. Cores : 12 : Wall time (sec) : 15.0379 : CPU Time (sec) : 67 : Date and Time : Thu May 18 17:08:50 2023
+Make Type : x86_64_B : Floating Point : d : Utilized Cores : 10 : Max. Cores : 12 : Wall time (sec) : 12.4267 : CPU Time (sec) : 65 : Date and Time : Thu May 18 17:09:05 2023
+Make Type : x86_64_C : Floating Point : f : Utilized Cores : 10 : Max. Cores : 12 : Wall time (sec) : 12.8236 : CPU Time (sec) : 66 : Date and Time : Thu May 18 17:09:17 2023
+Make Type : x86_64_A : Floating Point : d : Utilized Cores : 1 : Max. Cores : 12 : Wall time (sec) : 56.7289 : CPU Time (sec) : 56 : Date and Time : Thu May 18 17:15:35 2023
+Make Type : x86_64_A : Floating Point : d : Utilized Cores : 4 : Max. Cores : 12 : Wall time (sec) : 17.9414 : CPU Time (sec) : 53 : Date and Time : Thu May 18 17:16:32 2023
+Make Type : x86_64_A : Floating Point : d : Utilized Cores : 8 : Max. Cores : 12 : Wall time (sec) : 15.1277 : CPU Time (sec) : 66 : Date and Time : Thu May 18 17:16:50 2023
+Make Type : x86_64_A : Floating Point : d : Utilized Cores : 12 : Max. Cores : 12 : Wall time (sec) : 11.5101 : CPU Time (sec) : 73 : Date and Time : Thu May 18 17:17:05 2023
+Make Type : x86_64_B : Floating Point : d : Utilized Cores : 1 : Max. Cores : 12 : Wall time (sec) : 52.222 : CPU Time (sec) : 52 : Date and Time : Thu May 18 17:17:16 2023
+Make Type : x86_64_B : Floating Point : d : Utilized Cores : 4 : Max. Cores : 12 : Wall time (sec) : 16.9351 : CPU Time (sec) : 50 : Date and Time : Thu May 18 17:18:08 2023
+Make Type : x86_64_B : Floating Point : d : Utilized Cores : 8 : Max. Cores : 12 : Wall time (sec) : 12.9553 : CPU Time (sec) : 58 : Date and Time : Thu May 18 17:18:25 2023
+Make Type : x86_64_B : Floating Point : d : Utilized Cores : 12 : Max. Cores : 12 : Wall time (sec) : 10.8617 : CPU Time (sec) : 72 : Date and Time : Thu May 18 17:18:38 2023
+Make Type : x86_64_C : Floating Point : f : Utilized Cores : 1 : Max. Cores : 12 : Wall time (sec) : 59.7811 : CPU Time (sec) : 59 : Date and Time : Thu May 18 17:18:49 2023
+Make Type : x86_64_C : Floating Point : f : Utilized Cores : 4 : Max. Cores : 12 : Wall time (sec) : 17.0707 : CPU Time (sec) : 50 : Date and Time : Thu May 18 17:19:49 2023
+Make Type : x86_64_C : Floating Point : f : Utilized Cores : 8 : Max. Cores : 12 : Wall time (sec) : 12.8738 : CPU Time (sec) : 60 : Date and Time : Thu May 18 17:20:06 2023
+Make Type : x86_64_C : Floating Point : f : Utilized Cores : 12 : Max. Cores : 12 : Wall time (sec) : 11.4711 : CPU Time (sec) : 81 : Date and Time : Thu May 18 17:20:19 2023

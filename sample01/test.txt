@@ -1,7 +1,0 @@
-Make Type : x86_64_A : Utilized Cores : 8 : Wall time (sec) : 13.3562 : CPU Time (sec): 61   Wed May 17 23:34:19 2023
-Make Type : x86_64_A : Utilized Cores : 8 of 12 : Wall time (sec) : 13.6689 : CPU Time (sec) : 61 : Date and Time : Wed May 17 23:37:13 2023
-Make Type : x86_64_A : Utilized Cores : 8 : Max. Cores : 12 : Wall time (sec) : 13.8419 : CPU Time (sec) : 60 : Date and Time : Wed May 17 23:39:39 2023
-Make Type : x86_64_A : Utilized Cores : 8 : Max. Cores : 12 : Wall time (sec) : 14.6999 : CPU Time (sec) : 64 : Date and Time : Wed May 17 23:53:59 2023
-Make Type : x86_64_A : Floating Point : d : Utilized Cores : 8 : Max. Cores : 12 : Wall time (sec) : 14.408 : CPU Time (sec) : 62 : Date and Time : Thu May 18 00:01:25 2023
-Make Type : x86_64_A : Floating Point : f : Utilized Cores : 8 : Max. Cores : 12 : Wall time (sec) : 15.9406 : CPU Time (sec) : 71 : Date and Time : Thu May 18 00:06:56 2023
-Make Type : x86_64_A : Floating Point : f : Utilized Cores : 8 : Max. Cores : 12 : Wall time (sec) : 14.1379 : CPU Time (sec) : 65 : Date and Time : Thu May 18 00:12:34 2023

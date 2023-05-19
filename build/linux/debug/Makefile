@@ -45,6 +45,16 @@ ifeq ($(CPU),x86_64)
   CC_C = ${GPP_C} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_C} $(INCFLAGS)
   ########
 
+
+  #Fourth Built:
+  GPP_D=g++
+  C_OPTIONS_D= -g -std=c++14
+  C_OPTIONS_D+=-DVERSION=\"$(GIT_VERSION)\"
+  C_OPTIONS_D+=-DMAKETYPE=\"$(CPU)_D\"
+  C_OPTIONS_D+=-DFLTYPE=double
+  CC_D = ${GPP_D} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_D} $(INCFLAGS)
+  ########
+
 else
   BOOST_INCLUDE=/home/aali2/include
   INCFLAGS = -I $(BOOST_INCLUDE)
@@ -79,8 +89,11 @@ MAINOBJ_B = B_main.o
 LIBOBJ_C = C_ad4cache.o C_cache.o C_non_cache.o C_conf_independent.o C_coords.o C_grid.o C_szv_grid.o C_model.o C_monte_carlo.o C_mutate.o C_parallel_mc.o C_parse_pdbqt.o C_quasi_newton.o C_quaternion.o C_random.o C_utils.o C_vina.o
 MAINOBJ_C = C_main.o
 
-all: vina_A
-all: vina_A vina_B vina_C
+LIBOBJ_D = D_ad4cache.o D_cache.o D_non_cache.o D_conf_independent.o D_coords.o D_grid.o D_szv_grid.o D_model.o D_monte_carlo.o D_mutate.o D_parallel_mc.o D_parse_pdbqt.o D_quasi_newton.o D_quaternion.o D_random.o D_utils.o D_vina.o
+MAINOBJ_D = D_main.o
+
+#all: vina_A
+all: vina_A vina_B vina_C vina_D
 
 #First Built
 A_%.o : ../../../src/lib/%.cpp
@@ -104,7 +117,7 @@ vina_B: $(MAINOBJ_B) $(LIBOBJ_B)
 	$(CC_B) $(LDFLAGS) -o $@ $^ $(LIBS)
 ############
 
-#Second Built
+#Third Built
 C_%.o : ../../../src/lib/%.cpp
 	$(CC_C) -o $@ -c $<
 
@@ -113,6 +126,17 @@ C_%.o : ../../../src/main/main.cpp
 
 vina_C: $(MAINOBJ_C) $(LIBOBJ_C)
 	$(CC_C) $(LDFLAGS) -o $@ $^ $(LIBS)
+############
+
+#Fourth Built
+D_%.o : ../../../src/lib/%.cpp
+	$(CC_D) -o $@ -c $<
+
+D_%.o : ../../../src/main/main.cpp
+	$(CC_D) -I ../../../src/lib -o $@ -c $<
+
+vina_D: $(MAINOBJ_D) $(LIBOBJ_D)
+	$(CC_D) $(LDFLAGS) -o $@ $^ $(LIBS)
 ############
 
 clean:

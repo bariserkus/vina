@@ -2,10 +2,14 @@
 build/python/vina/autodock_vina_wrap.cpp
 build/python/vina/vina_wrapper.py
 
-#Vina builds
-vina
-vina_split
+#Vina builds and output files
+build/linux/debug/vina_A
+build/linux/debug/vina_B
+build/linux/debug/vina_C
+build/linux/debug/vina_D
+vbuild/linux/debug/vina_split
 sample01/vina_outSO.pdbqt
+sample01/out.pdbqt
 
 #From Baris
 *.swp

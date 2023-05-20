@@ -15,7 +15,7 @@ CPU:=$(shell uname -p)
 $(info CPU is $(CPU))
 ifeq ($(CPU),x86_64)
   BOOST_INCLUDE=$(BASE)/include
-  INCFLAGS = -I $(BOOST_INCLUDE)
+  INCFLAGS= -I $(BOOST_INCLUDE)
   LDFLAGS= -L$(BASE)/lib -L.
 
   #First Built:
@@ -27,9 +27,9 @@ ifeq ($(CPU),x86_64)
   CC_A = ${GPP_A} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_A} $(INCFLAGS)
   ########
 
-else
+else ($(CPU),riscv64)
   BOOST_INCLUDE=/home/aali2/include
-  INCFLAGS = -I $(BOOST_INCLUDE)
+  INCFLAGS= -I $(BOOST_INCLUDE)
   LDFLAGS= -L$(BASE)/lib -L. -L/home/aali2/lib
 
   #First Built:

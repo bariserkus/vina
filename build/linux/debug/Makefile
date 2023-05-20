@@ -1,5 +1,5 @@
 #Options common to both x86 & risc-v platforms
-C_PLATFORM= -static -DNDEBUG -pthread
+C_PLATFORM= -DNDEBUG -pthread
 BASE=/usr
 BOOST_VERSION=
 BOOST_LIB_VERSION=

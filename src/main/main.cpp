@@ -33,10 +33,25 @@
 #include <unordered_map>
 #include <chrono>
 #include <ctime>
-#include "../lib/file.h"
-#include "../lib/common.h"
+#include "file.h"
+#include "common.h"
 #include <boost/filesystem/path.hpp> // typedef'ed
-//#include <boost/timer/timer.hpp>  // Added for measuring time
+#include <cstdlib>
+#include <cstdio>
+
+// For testing vehave on RISC
+void init(double *vector, long n, double value){
+    for (int i=0; i < n; ++i) vector[i] = value;
+}
+
+void dotproduct(double *A, double *B, double *C, long n){
+#pragma clang loop vectorize(enable)
+    for (int i=0; i < n; ++i) {
+        C[i] = A[i] * B[i] + 3.0 * B[i];
+        B[i] += A[i] * C[i];
+    }
+}
+// For testing vehave on RISC
 
 struct usage_error : public std::runtime_error {
 	usage_error(const std::string& message) : std::runtime_error(message) {}
@@ -72,6 +87,17 @@ void check_occurrence(boost::program_options::variables_map& vm, boost::program_
 }
 
 int main(int argc, char* argv[]) {
+    // For testing vehave on RISC
+    long nnn = 1024;
+    double *A = (double*)malloc(nnn * sizeof(double));
+    double *B = (double*)malloc(nnn * sizeof(double));
+    double *C = (double*)malloc(nnn * sizeof(double));
+    init(A, nnn, 5.0);
+    init(B, nnn, 2.0);
+    dotproduct(A, B, C, nnn);
+    free(A); free(B); free(C);
+    // For testing vehave on RISC
+
     clock_t t1 = clock();
     time_t current_time = time(0);
     char* date_time_c = ctime(&current_time);

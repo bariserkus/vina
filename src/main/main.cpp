@@ -105,8 +105,8 @@ int main(int argc, char* argv[]) {
     date_time.pop_back();
     fl for_id_type = 0.0;
 	auto start = std::chrono::steady_clock::now();
+
 	using namespace boost::program_options;
-//	boost::timer::auto_cpu_timer t; // Added for measuring time
     const std::string make_type = MAKETYPE;
     const std::string git_version = VERSION;
 	const std::string version_string = "AutoDock Vina " + git_version;

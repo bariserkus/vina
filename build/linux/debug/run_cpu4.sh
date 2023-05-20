@@ -1,24 +1,21 @@
 #!/bin/bash
 
-TARGETS=("vina_A")
-
+TARGET="vina_A"
 CONF_FILE="conf.txt"
-CORES=("4")
+CORE="4"
 OUT_FILE="cpu4.txt"
 
-CPU=$(uname -p)
-echo ${CPU}
+VEHAVE="vehave"
+RISCV="riscv64"
+X86_64="x86_64"
 
-for TARGET in ${TARGETS[@]};
-do
-	for CORE in ${CORES[@]};
-	do
-	  if [[ ${CPU} -eq x86_64 ]]; then
-		  echo ${TARGET} --config ${CONF_FILE} --cpu ${CORE} --out_time ${OUT_FILE}
-		  ${TARGET} --config ${CONF_FILE} --cpu ${CORE} --out_time ${OUT_FILE}
-		elif [[ $CPU -eq riscv64 ]]; then
-		  echo vehave ${TARGET} --config ${CONF_FILE} --cpu ${CORE} --out_time ${OUT_FILE}
-		  vehave ${TARGET} --config ${CONF_FILE} --cpu ${CORE} --out_time ${OUT_FILE}
-	  fi
-	done
-done
+CPU=$(uname -p)
+
+if [[ ${CPU} == ${X86_64} ]]; then
+   echo ${TARGET} --config ${CONF_FILE} --cpu ${CORE} --out_time ${OUT_FILE}
+   ${TARGET} --config ${CONF_FILE} --cpu ${CORE} --out_time ${OUT_FILE}
+elif [[ ${CPU} == ${RISCV} ]]; then
+   echo ${CPU}
+   echo ${VEHAVE} ${TARGET} --config ${CONF_FILE} --cpu ${CORE} --out_time ${OUT_FILE}
+   ${VEHAVE} ${TARGET} --config ${CONF_FILE} --cpu ${CORE} --out_time ${OUT_FILE}
+fi

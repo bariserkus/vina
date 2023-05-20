@@ -20,21 +20,21 @@ ifeq ($(CPU),x86_64)
 
   #First Built:
   GPP_A=clang++
-  C_OPTIONS_A= -g -std=c++14
+  C_OPTIONS_A= -g -std=c++14 -O2
   C_OPTIONS_A+=-DVERSION=\"$(GIT_VERSION)\"
   C_OPTIONS_A+=-DMAKETYPE=\"$(CPU)_A\"
   C_OPTIONS_A+=-DFLTYPE=double
   CC_A = ${GPP_A} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_A} $(INCFLAGS)
   ########
 
-else ($(CPU),riscv64)
+else ifeq ($(CPU),riscv64)
   BOOST_INCLUDE=/home/aali2/include
   INCFLAGS= -I $(BOOST_INCLUDE)
   LDFLAGS= -L$(BASE)/lib -L. -L/home/aali2/lib
 
   #First Built:
   GPP_A=clang++
-  C_OPTIONS_A= -g -std=c++14 -march=rv64g -mepi -fno-vectorize -mcpu=avispado -Rpass=loop-vectorize -Rpass-analysis=loop-vectorize
+  C_OPTIONS_A= -g -std=c++14 -O2 -march=rv64g -mepi -mcpu=avispado -Rpass=loop-vectorize -Rpass-analysis=loop-vectorize
   C_OPTIONS_A+=-DVERSION=\"$(GIT_VERSION)\"
   C_OPTIONS_A+=-DMAKETYPE=\"$(CPU)_A\"
   C_OPTIONS_A+=-DFLTYPE=double

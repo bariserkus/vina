@@ -1,0 +1,4 @@
+2bxa
+spacing    0.575
+npts       40 40 40
+center     4.053 -8.352  6.468

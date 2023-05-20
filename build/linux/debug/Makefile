@@ -19,8 +19,8 @@ ifeq ($(CPU),x86_64)
   LDFLAGS= -L$(BASE)/lib -L.
 
   #First Built:
-  GPP_A=g++
-  C_OPTIONS_A= -g -std=c++14 -O3
+  GPP_A=clang++
+  C_OPTIONS_A= -g -std=c++14
   C_OPTIONS_A+=-DVERSION=\"$(GIT_VERSION)\"
   C_OPTIONS_A+=-DMAKETYPE=\"$(CPU)_A\"
   C_OPTIONS_A+=-DFLTYPE=double
@@ -34,7 +34,7 @@ else
 
   #First Built:
   GPP_A=clang++
-  C_OPTIONS_A= -g -std=c++14 -O3 -march=rv64g -mepi -O3 -fno-vectorize -mcpu=avispado -Rpass=loop-vectorize -Rpass-analysis=loop-vectorize
+  C_OPTIONS_A= -g -std=c++14 -march=rv64g -mepi -fno-vectorize -mcpu=avispado -Rpass=loop-vectorize -Rpass-analysis=loop-vectorize
   C_OPTIONS_A+=-DVERSION=\"$(GIT_VERSION)\"
   C_OPTIONS_A+=-DMAKETYPE=\"$(CPU)_A\"
   C_OPTIONS_A+=-DFLTYPE=double

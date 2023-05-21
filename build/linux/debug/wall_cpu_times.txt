@@ -1,0 +1,1 @@
+Make Type : x86_64_A : Floating Point : d : Utilized Cores : 12 : Max. Cores : 12 : Wall time (sec) : 13.6176 : CPU Time (sec) : 92 : Date and Time : Sun May 21 14:21:30 2023

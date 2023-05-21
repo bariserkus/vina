@@ -1,0 +1,47 @@
+MODEL 1
+REMARK VINA RESULT:    -9.943      0.000      0.000
+REMARK INTER + INTRA:         -12.918
+REMARK INTER:                 -12.268
+REMARK INTRA:                  -0.650
+REMARK UNBOUND:                -0.650
+REMARK  4 active torsions:
+REMARK  status: ('A' for Active; 'I' for Inactive)
+REMARK    1  A    between atoms: C_1  and  C_7 
+REMARK    2  A    between atoms: C_4  and  O_21 
+REMARK    3  A    between atoms: C_9  and  C_14 
+REMARK    4  A    between atoms: O_21  and  C_22 
+ROOT
+HETATM    1  C           0      78.587 185.819 559.423  0.00  0.00    -0.032 A 
+HETATM    2  C           0      78.660 187.199 559.617  0.00  0.00     0.012 A 
+HETATM    3  C           0      79.271 187.749 560.750  0.00  0.00     0.037 A 
+HETATM    4  C           0      79.815 186.898 561.721  0.00  0.00     0.068 A 
+HETATM    5  C           0      79.737 185.504 561.542  0.00  0.00     0.037 A 
+HETATM    6  C           0      79.133 184.978 560.410  0.00  0.00     0.012 A 
+ENDROOT
+BRANCH   1   7
+HETATM    7  C           0      77.954 185.257 558.174  0.00  0.00     0.160 C 
+HETATM    8  C           0      78.611 183.993 557.571  0.00  0.00     0.095 C 
+HETATM    9  C           0      77.411 183.159 557.161  0.00  0.00     0.068 C 
+HETATM   10  N           0      76.294 183.604 557.636  0.00  0.00    -0.166 NA
+HETATM   11  N           0      76.563 184.743 558.396  0.00  0.00    -0.195 N 
+HETATM   12  C           0      75.545 185.558 558.695  0.00  0.00     0.202 C 
+HETATM   13  N           0      74.692 186.290 559.010  0.00  0.00    -0.170 NA
+BRANCH   9  14
+HETATM   14  C           0      77.470 181.930 556.362  0.00  0.00    -0.010 A 
+HETATM   15  C           0      76.907 180.737 556.845  0.00  0.00     0.015 A 
+HETATM   16  C           0      76.957 179.561 556.095  0.00  0.00     0.024 A 
+HETATM   17  C           0      77.580 179.577 554.848  0.00  0.00     0.034 A 
+HETATM   18  C           0      78.150 180.751 554.344  0.00  0.00     0.024 A 
+HETATM   19 Cl           0      77.652 178.104 553.897  0.00  0.00    -0.084 Cl
+HETATM   20  C           0      78.092 181.917 555.099  0.00  0.00     0.015 A 
+ENDBRANCH   9  14
+ENDBRANCH   1   7
+BRANCH   4  21
+HETATM   21  O           0      80.427 187.315 562.864  0.00  0.00    -0.352 OA
+BRANCH  21  22
+HETATM   22  C           0      81.857 187.373 562.906  0.00  0.00     0.171 C 
+HETATM   23  C           0      82.274 188.783 562.529  0.00  0.00     0.034 C 
+ENDBRANCH  21  22
+ENDBRANCH   4  21
+TORSDOF 4
+ENDMDL

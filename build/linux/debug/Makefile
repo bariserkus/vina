@@ -87,6 +87,15 @@ else
   CC_C = ${GPP_C} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_C} $(INCFLAGS)
   #####
 
+    #Third Built:
+    GPP_D=g++
+    D_OPTIONS_C= -g -std=c++14
+    D_OPTIONS_C+=-DVERSION=\"$(GIT_VERSION)\"
+    D_OPTIONS_C+=-DMAKETYPE=\"$(CPU)_D\"
+    D_OPTIONS_C+=-DFLTYPE=double
+    CC_D = ${GPP_D} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_D} $(INCFLAGS)
+    #####
+
 endif
 
 LIBOBJ_A = A_ad4cache.o A_cache.o A_non_cache.o A_conf_independent.o A_coords.o A_grid.o A_szv_grid.o A_model.o A_monte_carlo.o A_mutate.o A_parallel_mc.o A_parse_pdbqt.o A_quasi_newton.o A_quaternion.o A_random.o A_utils.o A_vina.o
@@ -150,4 +159,4 @@ vina_D: $(MAINOBJ_D) $(LIBOBJ_D)
 
 clean:
 	rm -f *.o
-	rm -f vina_A vina_B vina_C
+	rm -f vina_A vina_B vina_C vina_D

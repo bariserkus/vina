@@ -2,10 +2,12 @@
 
 CPU=$(uname -p)
 
-TARGETS=("vina_A" "vina_B" "vina_C" "vina_D")
+X86_TARGETS=("vina_A" "vina_B" "vina_C" "vina_D")
+RISCV_TARGETS=("vina_A" "vina_B" "vina_C" "vina_D")
 
 CONF_FILE="conf.txt"
-CORES=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12")
+X86_CORES=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12")
+RISCV_CORES=("1" "2" "3" "4")
 X86_VINA_OUT_FILE="x86_vina_out.txt"
 RISCV_VINA_OUT_FILE="riscv_vina_out.txt"
 
@@ -18,18 +20,18 @@ RISCV="riscv64"
 X86_64="x86_64"
 
 if [[ ${CPU} == ${X86_64} ]]; then
-  for TARGET in ${TARGETS[@]}; do
-    for CORE in ${CORES[@]}; do
+  for TARGET in ${X86_TARGETS[@]}; do
+    for CORE in ${X86_CORES[@]}; do
       echo ${CPU}
       echo ${TARGET} --config ${CONF_FILE} --out ${X86_VINA_OUT_FILE} --cpu ${CORE} --out_time ${X86_TIME_OUT_FILE}
 #      ${TARGET} --config ${CONF_FILE} --out ${X86_VINA_OUT_FILE} --cpu ${CORE} --out_time ${X86_TIME_OUT_FILE}
     done
   done
 elif [[ ${CPU} == ${RISCV} ]]; then
-  for TARGET in ${TARGETS[@]}; do
-    for CORE in ${CORES[@]}; do
+  for TARGET in ${RISCV_TARGETS[@]}; do
+    for CORE in ${RISCV_CORES[@]}; do
       echo ${CPU}
-      if [[ ${TARGET} == TARGETS[0] ]]; then
+      if [[ ${TARGET} == ${RISCV_TARGETS[0]} ]]; then 
         echo ${TARGET} --config ${CONF_FILE}  --out ${RISCV_TIME_OUT_FILE} --cpu ${CORE} --out_time ${X86_TIME_OUT_FILE}
 #        ${TARGET} --config ${CONF_FILE} --out ${RISCV_TIME_OUT_FILE} --cpu ${CORE} --out_time ${X86_TIME_OUT_FILE}
       else

@@ -123,7 +123,7 @@ LIBOBJ_E = E_ad4cache.o E_cache.o E_non_cache.o E_conf_independent.o E_coords.o 
 MAINOBJ_E = E_main.o
 
 #all: vina_A
-all: vina_A vina_B vina_C vina_D
+all: vina_A vina_B vina_C vina_D vina_E
 
 #First Built
 A_%.o : ../../../src/lib/%.cpp

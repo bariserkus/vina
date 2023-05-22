@@ -25,7 +25,7 @@ if [[ ${CPU} == ${X86_64} ]]; then
       echo ${CPU}
       X86_VINA_OUT_FILE="X86_${TARGET}_${CORE}.txt"
       echo ${TARGET} --config ${CONF_FILE} --out ${X86_VINA_OUT_FILE} --cpu ${CORE} --out_time ${X86_TIME_OUT_FILE}
-#           ${TARGET} --config ${CONF_FILE} --out ${X86_VINA_OUT_FILE} --cpu ${CORE} --out_time ${X86_TIME_OUT_FILE}
+           ${TARGET} --config ${CONF_FILE} --out ${X86_VINA_OUT_FILE} --cpu ${CORE} --out_time ${X86_TIME_OUT_FILE}
     done
   done
 elif [[ ${CPU} == ${RISCV} ]]; then
@@ -35,11 +35,11 @@ elif [[ ${CPU} == ${RISCV} ]]; then
       RISCV_VINA_OUT_FILE="riscv_${TARGET}_${CORE}.txt"
       if [[ ${TARGET} == ${RISCV_TARGETS[0]} ]]; then 
         echo ${TARGET} --config ${CONF_FILE} --out ${RISCV_VINA_OUT_FILE} --cpu ${CORE} --out_time ${RISCV_TIME_OUT_FILE}
-#             ${TARGET} --config ${CONF_FILE} --out ${RISCV_VINA_OUT_FILE} --cpu ${CORE} --out_time ${RISCV_TIME_OUT_FILE}
+             ${TARGET} --config ${CONF_FILE} --out ${RISCV_VINA_OUT_FILE} --cpu ${CORE} --out_time ${RISCV_TIME_OUT_FILE}
       else
         VFILE="vehave_${TARGET}_${CORE}.trace"
         echo VEHAVE_DEBUG_LEVEL=${VDL} VEHAVE_VECTOR_LENGTH=${VVL} VEHAVE_TRACE_FILE=${VFILE} vehave ${TARGET} --config ${CONF_FILE} --out ${RISCV_VINA_OUT_FILE} --cpu ${CORE} --out_time ${RISCV_TIME_OUT_FILE}
-#             VEHAVE_DEBUG_LEVEL=${VDL} VEHAVE_VECTOR_LENGTH=${VVL} VEHAVE_TRACE_FILE=${VFILE} vehave ${TARGET} --config ${CONF_FILE} --out ${RISCV_VINA_OUT_FILE} --cpu ${CORE} --out_time ${RISCV_TIME_OUT_FILE}
+             VEHAVE_DEBUG_LEVEL=${VDL} VEHAVE_VECTOR_LENGTH=${VVL} VEHAVE_TRACE_FILE=${VFILE} vehave ${TARGET} --config ${CONF_FILE} --out ${RISCV_VINA_OUT_FILE} --cpu ${CORE} --out_time ${RISCV_TIME_OUT_FILE}
       fi
     done
   done

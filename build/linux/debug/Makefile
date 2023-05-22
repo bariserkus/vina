@@ -100,7 +100,7 @@ else
   GPP_E=clang++
   C_OPTIONS_E= -g -std=c++14 -march=rv64g -mepi -mcpu=avispado -Rpass=loop-vectorize -Rpass-analysis=loop-vectorize
   C_OPTIONS_E+=-DVERSION=\"$(GIT_VERSION)\"
-  C_OPTIONS_E+=-DMAKETYPE=\"$(CPU)_D\"
+  C_OPTIONS_E+=-DMAKETYPE=\"$(CPU)_E\"
   C_OPTIONS_E+=-DFLTYPE=double
   CC_E = ${GPP_E} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_E} $(INCFLAGS)
   #####
@@ -123,7 +123,7 @@ LIBOBJ_E = E_ad4cache.o E_cache.o E_non_cache.o E_conf_independent.o E_coords.o 
 MAINOBJ_E = E_main.o
 
 #all: vina_A
-all: vina_A vina_B vina_C vina_D
+all: vina_A vina_B vina_C vina_D vina_E
 
 #First Built
 A_%.o : ../../../src/lib/%.cpp

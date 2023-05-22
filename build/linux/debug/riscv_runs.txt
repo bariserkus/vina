@@ -14,3 +14,7 @@ Make Type : riscv64_D : Floating Point : d : Utilized Cores : 1 : Max. Cores : 4
 Make Type : riscv64_D : Floating Point : d : Utilized Cores : 2 : Max. Cores : 4 : Wall time (sec) : 2055.37 : CPU Time (sec) : 3707 : Date and Time : Mon May 22 17:29:13 2023
 Make Type : riscv64_D : Floating Point : d : Utilized Cores : 3 : Max. Cores : 4 : Wall time (sec) : 1821.69 : CPU Time (sec) : 3875 : Date and Time : Mon May 22 18:03:29 2023
 Make Type : riscv64_D : Floating Point : d : Utilized Cores : 4 : Max. Cores : 4 : Wall time (sec) : 1460.72 : CPU Time (sec) : 3868 : Date and Time : Mon May 22 18:33:51 2023
+Make Type : riscv64_E : Floating Point : d : Utilized Cores : 1 : Max. Cores : 4 : Wall time (sec) : 5238.73 : CPU Time (sec) : 5230 : Date and Time : Mon May 22 20:48:30 2023
+Make Type : riscv64_E : Floating Point : d : Utilized Cores : 2 : Max. Cores : 4 : Wall time (sec) : 2766.35 : CPU Time (sec) : 5114 : Date and Time : Mon May 22 22:15:49 2023
+Make Type : riscv64_E : Floating Point : d : Utilized Cores : 3 : Max. Cores : 4 : Wall time (sec) : 2069.65 : CPU Time (sec) : 5094 : Date and Time : Mon May 22 23:01:56 2023
+Make Type : riscv64_E : Floating Point : d : Utilized Cores : 4 : Max. Cores : 4 : Wall time (sec) : 1667.98 : CPU Time (sec) : 4960 : Date and Time : Mon May 22 23:36:26 2023

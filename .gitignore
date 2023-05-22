@@ -7,6 +7,7 @@ build/linux/debug/vina_A
 build/linux/debug/vina_B
 build/linux/debug/vina_C
 build/linux/debug/vina_D
+build/linux/debug/vina_e
 vbuild/linux/debug/vina_split
 sample01/vina_outSO.pdbqt
 sample01/out.pdbqt

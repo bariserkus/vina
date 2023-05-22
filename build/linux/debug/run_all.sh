@@ -24,7 +24,7 @@ if [[ ${CPU} == ${X86_64} ]]; then
     for CORE in ${X86_CORES[@]}; do
       echo ${CPU}
       echo ${TARGET} --config ${CONF_FILE} --out ${X86_VINA_OUT_FILE} --cpu ${CORE} --out_time ${X86_TIME_OUT_FILE}
-#      ${TARGET} --config ${CONF_FILE} --out ${X86_VINA_OUT_FILE} --cpu ${CORE} --out_time ${X86_TIME_OUT_FILE}
+           ${TARGET} --config ${CONF_FILE} --out ${X86_VINA_OUT_FILE} --cpu ${CORE} --out_time ${X86_TIME_OUT_FILE}
     done
   done
 elif [[ ${CPU} == ${RISCV} ]]; then
@@ -32,11 +32,11 @@ elif [[ ${CPU} == ${RISCV} ]]; then
     for CORE in ${RISCV_CORES[@]}; do
       echo ${CPU}
       if [[ ${TARGET} == ${RISCV_TARGETS[0]} ]]; then 
-        echo ${TARGET} --config ${CONF_FILE}  --out ${RISCV_TIME_OUT_FILE} --cpu ${CORE} --out_time ${X86_TIME_OUT_FILE}
-#        ${TARGET} --config ${CONF_FILE} --out ${RISCV_TIME_OUT_FILE} --cpu ${CORE} --out_time ${X86_TIME_OUT_FILE}
+        echo ${TARGET} --config ${CONF_FILE} --out ${RISCV_TIME_OUT_FILE} --cpu ${CORE} --out_time ${X86_TIME_OUT_FILE}
+             ${TARGET} --config ${CONF_FILE} --out ${RISCV_TIME_OUT_FILE} --cpu ${CORE} --out_time ${X86_TIME_OUT_FILE}
       else
         echo ${VEHAVE_PARAMS} ${VEHAVE} ${TARGET} --config ${CONF_FILE} --out ${RISCV_TIME_OUT_FILE} --cpu ${CORE} --out_time ${X86_TIME_OUT_FILE}
-#        ${VEHAVE_PARAMS} ${VEHAVE} ${TARGET} --config ${CONF_FILE} --out ${RISCV_TIME_OUT_FILE} --cpu ${CORE} --out_time ${X86_TIME_OUT_FILE}
+             ${VEHAVE_PARAMS} ${VEHAVE} ${TARGET} --config ${CONF_FILE} --out ${RISCV_TIME_OUT_FILE} --cpu ${CORE} --out_time ${X86_TIME_OUT_FILE}
       fi
     done
   done

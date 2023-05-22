@@ -110,7 +110,7 @@ else
   GPP_E=clang++
   C_OPTIONS_E= -g -std=c++14 -march=rv64g -mepi -mcpu=avispado -Rpass=loop-vectorize -Rpass-analysis=loop-vectorize
   C_OPTIONS_E+=-DVERSION=\"$(GIT_VERSION)\"
-  C_OPTIONS_E+=-DMAKETYPE=\"$(CPU)_D\"
+  C_OPTIONS_E+=-DMAKETYPE=\"$(CPU)_E\"
   C_OPTIONS_E+=-DFLTYPE=double
   CC_E = ${GPP_E} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_E} $(INCFLAGS)
   #####

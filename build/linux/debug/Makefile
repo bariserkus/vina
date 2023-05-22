@@ -96,6 +96,15 @@ else
   CC_D = ${GPP_D} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_D} $(INCFLAGS)
   #####
 
+  #Fourth Built:
+  GPP_E=clang++
+  C_OPTIONS_E= -g -std=c++14 -march=rv64g -mepi -mcpu=avispado -Rpass=loop-vectorize -Rpass-analysis=loop-vectorize
+  C_OPTIONS_E+=-DVERSION=\"$(GIT_VERSION)\"
+  C_OPTIONS_E+=-DMAKETYPE=\"$(CPU)_D\"
+  C_OPTIONS_E+=-DFLTYPE=double
+  CC_E = ${GPP_E} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_E} $(INCFLAGS)
+  #####
+
 endif
 
 LIBOBJ_A = A_ad4cache.o A_cache.o A_non_cache.o A_conf_independent.o A_coords.o A_grid.o A_szv_grid.o A_model.o A_monte_carlo.o A_mutate.o A_parallel_mc.o A_parse_pdbqt.o A_quasi_newton.o A_quaternion.o A_random.o A_utils.o A_vina.o
@@ -109,6 +118,9 @@ MAINOBJ_C = C_main.o
 
 LIBOBJ_D = D_ad4cache.o D_cache.o D_non_cache.o D_conf_independent.o D_coords.o D_grid.o D_szv_grid.o D_model.o D_monte_carlo.o D_mutate.o D_parallel_mc.o D_parse_pdbqt.o D_quasi_newton.o D_quaternion.o D_random.o D_utils.o D_vina.o
 MAINOBJ_D = D_main.o
+
+LIBOBJ_E = E_ad4cache.o E_cache.o E_non_cache.o E_conf_independent.o E_coords.o E_grid.o E_szv_grid.o E_model.o E_monte_carlo.o E_mutate.o E_parallel_mc.o E_parse_pdbqt.o E_quasi_newton.o E_quaternion.o E_random.o E_utils.o E_vina.o
+MAINOBJ_E = E_main.o
 
 #all: vina_A
 all: vina_A vina_B vina_C vina_D
@@ -157,6 +169,17 @@ vina_D: $(MAINOBJ_D) $(LIBOBJ_D)
 	$(CC_D) $(LDFLAGS) -o $@ $^ $(LIBS)
 ############
 
+#Fifth Built
+E_%.o : ../../../src/lib/%.cpp
+	$(CC_E) -o $@ -c $<
+
+E_%.o : ../../../src/main/main.cpp
+	$(CC_E) -I ../../../src/lib -o $@ -c $<
+
+vina_E: $(MAINOBJ_E) $(LIBOBJ_E)
+	$(CC_E) $(LDFLAGS) -o $@ $^ $(LIBS)
+############
+
 clean:
 	rm -f *.o
-	rm -f vina_A vina_B vina_C vina_D
+	rm -f vina_A vina_B vina_C vina_D vina_E

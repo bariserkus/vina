@@ -32,7 +32,7 @@ elif [[ ${CPU} == ${RISCV} ]]; then
   for TARGET in ${RISCV_TARGETS[@]}; do
     for CORE in ${RISCV_CORES[@]}; do
       echo ${CPU}
-      RISCV_VINA_OUT_FILE="riscv_vina_${TARGET}_${CORE}.txt"
+      RISCV_VINA_OUT_FILE="riscv_${TARGET}_${CORE}.txt"
       if [[ ${TARGET} == ${RISCV_TARGETS[0]} ]]; then 
         echo ${TARGET} --config ${CONF_FILE} --out ${RISCV_VINA_OUT_FILE} --cpu ${CORE} --out_time ${X86_TIME_OUT_FILE}
 #             ${TARGET} --config ${CONF_FILE} --out ${RISCV_VINA_OUT_FILE} --cpu ${CORE} --out_time ${X86_TIME_OUT_FILE}

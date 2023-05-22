@@ -17,5 +17,5 @@ if [[ ${CPU} == ${X86_64} ]]; then
 elif [[ ${CPU} == ${RISCV} ]]; then
    echo ${CPU}
    echo ${VEHAVE} ${TARGET} --config ${CONF_FILE} --cpu ${CORE} --out_time ${OUT_FILE}
-   ${VEHAVE} ${TARGET} --config ${CONF_FILE} --cpu ${CORE} --out_time ${OUT_FILE}
+   ${VEHAVE} ${TARGET} --config ${CONF_FILE} --out riscv_runs.txt --cpu ${CORE} --out_time ${OUT_FILE}
 fi

@@ -87,14 +87,14 @@ else
   CC_C = ${GPP_C} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_C} $(INCFLAGS)
   #####
 
-    #Third Built:
-    GPP_D=g++
-    D_OPTIONS_C= -g -std=c++14
-    D_OPTIONS_C+=-DVERSION=\"$(GIT_VERSION)\"
-    D_OPTIONS_C+=-DMAKETYPE=\"$(CPU)_D\"
-    D_OPTIONS_C+=-DFLTYPE=double
-    CC_D = ${GPP_D} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_D} $(INCFLAGS)
-    #####
+  #Fourth Built:
+  GPP_D=g++
+  D_OPTIONS_C= -g -std=c++14
+  D_OPTIONS_C+=-DVERSION=\"$(GIT_VERSION)\"
+  D_OPTIONS_C+=-DMAKETYPE=\"$(CPU)_D\"
+  D_OPTIONS_C+=-DFLTYPE=double
+  CC_D = ${GPP_D} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_D} $(INCFLAGS)
+  #####
 
 endif
 

@@ -29,7 +29,7 @@ elif [[ ${CPU} == ${RISCV} ]]; then
   for TARGET in ${TARGETS[@]}; do
     for CORE in ${CORES[@]}; do
       echo ${CPU}
-      if [[ ${TARGET} == TARGET[0] ]]; then
+      if [[ ${TARGET} == TARGETS[0] ]]; then
         echo ${TARGET} --config ${CONF_FILE}  --out ${RISCV_TIME_OUT_FILE} --cpu ${CORE} --out_time ${X86_TIME_OUT_FILE}
 #        ${TARGET} --config ${CONF_FILE} --out ${RISCV_TIME_OUT_FILE} --cpu ${CORE} --out_time ${X86_TIME_OUT_FILE}
       else

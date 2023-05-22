@@ -89,10 +89,10 @@ else
 
   #Fourth Built:
   GPP_D=g++
-  D_OPTIONS_C= -g -std=c++14
-  D_OPTIONS_C+=-DVERSION=\"$(GIT_VERSION)\"
-  D_OPTIONS_C+=-DMAKETYPE=\"$(CPU)_D\"
-  D_OPTIONS_C+=-DFLTYPE=double
+  C_OPTIONS_D= -g -std=c++14
+  C_OPTIONS_D+=-DVERSION=\"$(GIT_VERSION)\"
+  C_OPTIONS_D+=-DMAKETYPE=\"$(CPU)_D\"
+  C_OPTIONS_D+=-DFLTYPE=double
   CC_D = ${GPP_D} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_D} $(INCFLAGS)
   #####
 

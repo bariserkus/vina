@@ -145,6 +145,7 @@ fl grid::evaluate_aux(const vec& location, fl slope, fl v, vec* deriv) const { /
 		curl(f, gradient, v);
 		vec gradient_everywhere;
 
+        #pragma clang loop vectorize(enable)
 		VINA_FOR(i, 3) {
 			gradient_everywhere[i] = ((region[i] == 0) ? gradient[i] : 0);
 			(*deriv)[i] = m_factor[i] * gradient_everywhere[i] + slope * region[i];

@@ -19,12 +19,12 @@ ifeq ($(CPU),x86_64)
   LDFLAGS= -L$(BASE)/lib -L.
 
   #First Built:
-  GPP_A=g++
-  C_OPTIONS_A= -g -std=c++14
-  C_OPTIONS_A+=-DVERSION=\"$(GIT_VERSION)\"
-  C_OPTIONS_A+=-DMAKETYPE=\"$(CPU)_A\"
-  C_OPTIONS_A+=-DFLTYPE=double
-  CC_A = ${GPP_A} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_A} $(INCFLAGS)
+  GPP_As=g++
+  C_OPTIONS_As= -g -std=c++14
+  C_OPTIONS_As+=-DVERSION=\"$(GIT_VERSION)\"
+  C_OPTIONS_As+=-DMAKETYPE=\"$(CPU)_As\"
+  C_OPTIONS_As+=-DFLTYPE=double
+  CC_As = ${GPP_As} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_As} $(INCFLAGS)
   ########
 
 else
@@ -33,31 +33,31 @@ else
   LDFLAGS= -L$(BASE)/lib -L. -L/home/aali2/lib
 
   #First Built:
-  GPP_A=clang++
-  C_OPTIONS_A= -g -std=c++14 -march=rv64g -mepi -mcpu=avispado -Rpass=loop-vectorize -Rpass-analysis=loop-vectorize
-  C_OPTIONS_A+=-DVERSION=\"$(GIT_VERSION)\"
-  C_OPTIONS_A+=-DMAKETYPE=\"$(CPU)_A\"
-  C_OPTIONS_A+=-DFLTYPE=double
-  CC_A = ${GPP_A} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_A} $(INCFLAGS)
+  GPP_As=clang++
+  C_OPTIONS_As= -g -std=c++14 -march=rv64g -mepi -mcpu=avispado -Rpass=loop-vectorize -Rpass-analysis=loop-vectorize
+  C_OPTIONS_As+=-DVERSION=\"$(GIT_VERSION)\"
+  C_OPTIONS_As+=-DMAKETYPE=\"$(CPU)_As\"
+  C_OPTIONS_As+=-DFLTYPE=double
+  CC_As = ${GPP_As} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_As} $(INCFLAGS)
   #######
 endif
 
-LIBOBJ_A = A_ad4cache.o A_cache.o A_non_cache.o A_conf_independent.o A_coords.o A_grid.o A_szv_grid.o A_model.o A_monte_carlo.o A_mutate.o A_parallel_mc.o A_parse_pdbqt.o A_quasi_newton.o A_quaternion.o A_random.o A_utils.o A_vina.o
-MAINOBJ_A = A_main.o
+LIBOBJ_As= As_ad4cache.o As_cache.o As_non_cache.o As_conf_independent.o As_coords.o As_grid.o As_szv_grid.o As_model.o As_monte_carlo.o As_mutate.o As_parallel_mc.o As_parse_pdbqt.o As_quasi_newton.o As_quaternion.o As_random.o As_utils.o As_vina.o
+MAINOBJ_As = As_main.o
 
-all: vina_A_single
+all: vina_As
 
 #First Built
-A_%.o : ../../../src/lib/%.cpp
-	$(CC_A) -o $@ -c $<
+As_%.o : ../../../src/lib/%.cpp
+	$(CC_As) -o $@ -c $<
 
-A_%.o : ../../../src/main/main.cpp
-	$(CC_A) -I ../../../src/lib -o $@ -c $<
+As_%.o : ../../../src/main/main.cpp
+	$(CC_As) -I ../../../src/lib -o $@ -c $<
 
-vina_A_single: $(MAINOBJ_A) $(LIBOBJ_A)
-	$(CC_A) $(LDFLAGS) -o $@ $^ $(LIBS)
+vina_As: $(MAINOBJ_As) $(LIBOBJ_As)
+	$(CC_As) $(LDFLAGS) -o $@ $^ $(LIBS)
 ###########
 
 clean:
 	rm -f *.o
-	rm -f vina_A_single
+	rm -f vina_As

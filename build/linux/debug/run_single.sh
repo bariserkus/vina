@@ -2,15 +2,15 @@
 
 CPU=$(uname -p)
 
-X86_TARGETS=("vina_As")
-RISCV_TARGETS=("vina_As")
+X86_TARGETS=("vina_B")
+RISCV_TARGETS=("vina_B")
 
 CONF_FILE="conf.txt"
 X86_CORES=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12")
 RISCV_CORES=("1" "2" "3" "4")
 
-X86_TIME_OUT_FILE="x86_single_2.txt"
-RISCV_TIME_OUT_FILE="riscv_single_2.txt"
+X86_TIME_OUT_FILE="x86_single_3.txt"
+RISCV_TIME_OUT_FILE="riscv_single_3.txt"
 
 RISCV="riscv64"
 X86_64="x86_64"

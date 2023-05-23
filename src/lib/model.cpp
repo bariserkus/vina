@@ -773,7 +773,7 @@ fl eval_interacting_pairs(const precalculate_byatom& p, fl v, const interacting_
 	if (with_max_cutoff) {
 		cutoff_sqr = p.max_cutoff_sqr();
 	}
-
+    #pragma clang loop vectorize(enable)
 	VINA_FOR_IN(i, pairs) {
 		const interacting_pair& ip = pairs[i];
 		fl r2 = vec_distance_sqr(coords[ip.a], coords[ip.b]);
@@ -793,7 +793,7 @@ fl eval_interacting_pairs_deriv(const precalculate_byatom& p, fl v, const intera
 	if (with_max_cutoff) {
 		cutoff_sqr = p.max_cutoff_sqr();
 	}
-
+    #pragma clang loop vectorize(enable)
 	VINA_FOR_IN(i, pairs) {
 		const interacting_pair& ip = pairs[i];
 		vec r = coords[ip.b] - coords[ip.a]; // a -> b

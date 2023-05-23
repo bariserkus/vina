@@ -60,6 +60,7 @@ public:
         sz n = smooth.size();
         VINA_CHECK(rs.size() == n);
         VINA_CHECK(fast.size() == n);
+        #pragma clang loop vectorize(enable)
         VINA_FOR(i, n) {
             // calculate dor's
             fl &dor = smooth[i].second;
@@ -78,6 +79,7 @@ public:
     };
     sz min_smooth_fst() const{
         sz tmp = 0; // returned if smooth.empty()
+        #pragma clang loop vectorize(enable)
         VINA_FOR_IN(i_inv, smooth) {
             sz i = smooth.size() - i_inv - 1; // i_inv < smooth.size()  => i_inv + 1 <= smooth.size()
             if (i_inv == 0 || smooth[i].first < smooth[tmp].first)
@@ -91,6 +93,7 @@ public:
         VINA_CHECK(min_index < rs.size()); // won't hold for n == 0
         VINA_CHECK(rs.size() == smooth.size());
         fl optimal_r = rs[min_index];
+        #pragma clang loop vectorize(enable)
         VINA_FOR_IN(i, smooth)
         {
             fl r = rs[i];
@@ -145,6 +148,7 @@ public:
             {
                 precalculate_element &p = data(t1, t2);
                 // init smooth[].first
+                #pragma clang loop vectorize(enable)
                 VINA_FOR_IN(i, p.smooth)
                 {
                     p.smooth[i].first = (std::min)(v, sf.eval(t1, t2, rs[i]));
@@ -217,6 +221,8 @@ public:
             {
                 precalculate_element &p = data(i, j);
                 // init smooth[].first
+
+                #pragma clang loop vectorize(enable)
                 VINA_FOR_IN(k, p.smooth)
                 {
                     p.smooth[k].first = (std::min)(v, sf.eval(atoms[i], atoms[j], rs[k]));
@@ -243,6 +249,7 @@ public:
     void widen(fl left, fl right){
         flv rs = calculate_rs();
         VINA_FOR(t1, m_data.dim())
+        #pragma clang loop vectorize(enable)
         VINA_RANGE(t2, t1, m_data.dim())
         m_data(t1, t2).widen(rs, left, right);
     };

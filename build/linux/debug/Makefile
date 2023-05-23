@@ -34,7 +34,7 @@ else
 
   #First Built:
   GPP_As=clang++
-  C_OPTIONS_As= -g -std=c++14 -march=rv64g -mepi -mcpu=avispado -Rpass=loop-vectorize -Rpass-analysis=loop-vectorize
+  C_OPTIONS_As= -g -std=c++14 -O3 fno-vectorize -march=rv64g -mepi -mcpu=avispado -Rpass=loop-vectorize -Rpass-analysis=loop-vectorize
   C_OPTIONS_As+=-DVERSION=\"$(GIT_VERSION)\"
   C_OPTIONS_As+=-DMAKETYPE=\"$(CPU)_As\"
   C_OPTIONS_As+=-DFLTYPE=double
@@ -59,5 +59,5 @@ vina_As: $(MAINOBJ_As) $(LIBOBJ_As)
 ###########
 
 clean:
-	rm -f *.o
+	rm -f As_*.o
 	rm -f vina_As

@@ -9,9 +9,11 @@ build/linux/debug/vina_C
 build/linux/debug/vina_D
 build/linux/debug/vina_E
 build/linux/debug/vina_As
+build/linux/debug/vehave*.trace*
 vbuild/linux/debug/vina_split
 sample01/vina_outSO.pdbqt
 sample01/out.pdbqt
+
 
 #From Baris
 *.swp

@@ -55,6 +55,16 @@ ifeq ($(CPU),x86_64)
   CC_D = ${GPP_D} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_D} $(INCFLAGS)
   ########
 
+
+  #Fourth Built:
+  GPP_E=clang++
+  C_OPTIONS_E= -g -std=c++14
+  C_OPTIONS_E+=-DVERSION=\"$(GIT_VERSION)\"
+  C_OPTIONS_E+=-DMAKETYPE=\"$(CPU)_E\"
+  C_OPTIONS_E+=-DFLTYPE=double
+  CC_E = ${GPP_E} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_E} $(INCFLAGS)
+  ########
+
 else
   BOOST_INCLUDE=/home/aali2/include
   INCFLAGS = -I $(BOOST_INCLUDE)

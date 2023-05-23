@@ -1,0 +1,12 @@
+Make Type : x86_64_As : Floating Point : d : Utilized Cores : 1 : Max. Cores : 12 : Wall time (sec) : 59.9087 : CPU Time (sec) : 59 : Date and Time : Tue May 23 13:11:19 2023
+Make Type : x86_64_As : Floating Point : d : Utilized Cores : 2 : Max. Cores : 12 : Wall time (sec) : 33.0836 : CPU Time (sec) : 59 : Date and Time : Tue May 23 13:12:19 2023
+Make Type : x86_64_As : Floating Point : d : Utilized Cores : 3 : Max. Cores : 12 : Wall time (sec) : 22.2749 : CPU Time (sec) : 53 : Date and Time : Tue May 23 13:12:52 2023
+Make Type : x86_64_As : Floating Point : d : Utilized Cores : 4 : Max. Cores : 12 : Wall time (sec) : 17.0234 : CPU Time (sec) : 51 : Date and Time : Tue May 23 13:13:14 2023
+Make Type : x86_64_As : Floating Point : d : Utilized Cores : 5 : Max. Cores : 12 : Wall time (sec) : 17.2057 : CPU Time (sec) : 55 : Date and Time : Tue May 23 13:13:31 2023
+Make Type : x86_64_As : Floating Point : d : Utilized Cores : 6 : Max. Cores : 12 : Wall time (sec) : 16.248 : CPU Time (sec) : 62 : Date and Time : Tue May 23 13:13:49 2023
+Make Type : x86_64_As : Floating Point : d : Utilized Cores : 7 : Max. Cores : 12 : Wall time (sec) : 13.8591 : CPU Time (sec) : 58 : Date and Time : Tue May 23 13:14:05 2023
+Make Type : x86_64_As : Floating Point : d : Utilized Cores : 8 : Max. Cores : 12 : Wall time (sec) : 15.0344 : CPU Time (sec) : 63 : Date and Time : Tue May 23 13:14:19 2023
+Make Type : x86_64_As : Floating Point : d : Utilized Cores : 9 : Max. Cores : 12 : Wall time (sec) : 14.3202 : CPU Time (sec) : 70 : Date and Time : Tue May 23 13:14:34 2023
+Make Type : x86_64_As : Floating Point : d : Utilized Cores : 10 : Max. Cores : 12 : Wall time (sec) : 14.7705 : CPU Time (sec) : 73 : Date and Time : Tue May 23 13:14:48 2023
+Make Type : x86_64_As : Floating Point : d : Utilized Cores : 11 : Max. Cores : 12 : Wall time (sec) : 15.0466 : CPU Time (sec) : 76 : Date and Time : Tue May 23 13:15:03 2023
+Make Type : x86_64_As : Floating Point : d : Utilized Cores : 12 : Max. Cores : 12 : Wall time (sec) : 12.5627 : CPU Time (sec) : 84 : Date and Time : Tue May 23 13:15:18 2023

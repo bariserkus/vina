@@ -37,7 +37,7 @@ ifeq ($(CPU),x86_64)
   ########
 
   #Third Built:
-  GPP_C=g++
+  GPP_C=clang++
   C_OPTIONS_C= -g -std=c++14 -O3
   C_OPTIONS_C+=-DVERSION=\"$(GIT_VERSION)\"
   C_OPTIONS_C+=-DMAKETYPE=\"$(CPU)_C\"

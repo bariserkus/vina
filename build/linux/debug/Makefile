@@ -19,8 +19,8 @@ ifeq ($(CPU),x86_64)
   LDFLAGS= -L$(BASE)/lib -L.
 
   #First Built:
-  GPP_As=g++
-  C_OPTIONS_As= -g -std=c++14
+  GPP_As=clang++
+  C_OPTIONS_As= -g -std=c++14 -O3
   C_OPTIONS_As+=-DVERSION=\"$(GIT_VERSION)\"
   C_OPTIONS_As+=-DMAKETYPE=\"$(CPU)_As\"
   C_OPTIONS_As+=-DFLTYPE=double

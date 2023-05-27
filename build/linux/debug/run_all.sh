@@ -2,7 +2,7 @@
 
 CPU=$(uname -p)
 
-X86_TARGETS=("vina_A" "vina_B" "vina_C" "vina_D" "vina_E")
+X86_TARGETS=("vina_A" "vina_B" "vina_C" "vina_D" "vina_E" "vina_F" "vina_G" "vina_H")
 #X86_TARGETS=("vina_E")
 RISCV_TARGETS=("vina_A" "vina_B" "vina_C" "vina_D" "vina_E")
 #RISCV_TARGETS=("vina_E")

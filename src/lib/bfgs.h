@@ -28,7 +28,7 @@ typedef triangular_matrix<fl> flmat;
 
 void negate_vector(double* data, const int gvl) {
     int n = gvl;
-    __epi_1xf64 v_neg_factor = __builtin_epi_vbroadcast_1xf64(-1.0);
+    __epi_1xf64 v_neg_factor = __builtin_epi_vbroadcast_1xf64(-1.0, gvl);
     for (int i = 0; i < n; ++i) {
         __epi_1xf64 v_data = __builtin_epi_vload_1xf64(&data[i], gvl);
         __epi_1xf64 v_negated = __builtin_epi_vfmul_1xf64(v_data, v_neg_factor);
@@ -46,7 +46,7 @@ void minus_mat_vec_product(const flmat& m, const Change& in, Change& out, const 
             __epi_1xf64 v_in = __builtin_epi_vload_1xf64(&in(j), gvl);
             v_sum = __builtin_epi_vfmacc_1xf64(v_m, v_in, v_sum, gvl);
         }
-        __builtin_epi_vstore_1xf64(&out(i), negate_vector(&v_sum, gvl), gvl);
+        __builtin_epi_vstore_1xf64(&out(i), negate_vector(v_sum, gvl), gvl);
     }
 }
 

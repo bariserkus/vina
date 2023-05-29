@@ -129,7 +129,7 @@ fl bfgs(F& f, Conf& x, Change& g, const unsigned max_steps, const fl average_req
     const int gvl = __builtin_epi_vsetvl(n, __epi_e32, __epi_m1);
 
     VINA_U_FOR(step, max_steps) {
-        minus_mat_vec_product(h, g, p);
+        minus_mat_vec_product(h, g, p, gvl);
         fl f1 = 0;
         const fl alpha = line_search(f, n, x, g, f0, p, x_new, g_new, f1, evalcount);
         Change y(g_new);

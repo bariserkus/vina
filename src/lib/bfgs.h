@@ -70,13 +70,13 @@ inline bool bfgs_update(flmat& h, const Change& p, const Change& y, const fl alp
 }
 
 template<typename F, typename Conf, typename Change>
-fl line_search(F& f, sz n, const Conf& x, const Change& g, const fl f0, const Change& p, Conf& x_new, Change& g_new, fl& f1, int& evalcount) {
+fl line_search(F& f, sz n, const Conf& x, const Change& g, const fl f0, const Change& p, Conf& x_new, Change& g_new, fl& f1, int& evalcount, const int gvl) {
     const fl c0 = 0.0001;
     const unsigned max_trials = 10;
     const fl multiplier = 0.5;
     fl alpha = 1;
 
-    const fl pg = scalar_product(p, g, n);
+    const fl pg = scalar_product(p, g, n, gvl);
 
     VINA_U_FOR(trial, max_trials) {
         x_new = x;
@@ -131,9 +131,9 @@ fl bfgs(F& f, Conf& x, Change& g, const unsigned max_steps, const fl average_req
     VINA_U_FOR(step, max_steps) {
         minus_mat_vec_product(h, g, p, gvl);
         fl f1 = 0;
-        const fl alpha = line_search(f, n, x, g, f0, p, x_new, g_new, f1, evalcount);
+        const fl alpha = line_search(f, n, x, g, f0, p, x_new, g_new, f1, evalcount, gvl);
         Change y(g_new);
-        subtract_change(y, g, n);
+        subtract_change(y, g, n, gvl);
 
         f_values.push_back(f1);
         f0 = f1;
@@ -146,7 +146,7 @@ fl bfgs(F& f, Conf& x, Change& g, const unsigned max_steps, const fl average_req
         if (step == 0) {
             const fl yy = scalar_product(y, y, n, gvl);
             if (std::abs(yy) > epsilon_fl)
-                set_diagonal(h, alpha * scalar_product(y, p, n, gvl) / yy, gvl);
+                set_diagonal(h, alpha * scalar_product(y, p, n, gvl) / yy);
         }
 
         bool h_updated = bfgs_update(h, p, y, alpha, gvl);

@@ -89,7 +89,7 @@ fl line_search(F& f, sz n, const Conf& x, const Change& g, const fl f0, const Ch
     return alpha;
 }
 
-inline void set_diagonal(flmat& m, fl x, const int gvl) {
+inline void set_diagonal(flmat& m, fl x) {
     VINA_FOR(i, m.dim())
         m(i, i) = x;
 }

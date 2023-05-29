@@ -90,7 +90,7 @@ fl line_search(F& f, sz n, const Conf& x, const Change& g, const fl f0, const Ch
     return alpha;
 }
 
-inline void set_diagonal(flmat& m, fl x, const int gvl) {
+inline void set_diagonal(flmat& m, fl x) {
     sz n = m.dim();
     for (int i = 0; i < n; ++i) {
         m(i, i) = x;
@@ -125,6 +125,8 @@ fl bfgs(F& f, Conf& x, Change& g, const unsigned max_steps, const fl average_req
     flv f_values;
     f_values.reserve(max_steps + 1);
     f_values.push_back(f0);
+
+    const int gvl = __builtin_epi_vsetvl(n, __epi_e32, __epi_m1);
 
     VINA_U_FOR(step, max_steps) {
         minus_mat_vec_product(h, g, p);

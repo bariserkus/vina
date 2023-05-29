@@ -43,7 +43,7 @@ void minus_mat_vec_product(const flmat& m, const Change& in, Change& out, const 
         __epi_1xf64 v_sum = __builtin_epi_vbroadcast_1xf64(0.0, gvl);
         for (int j = 0; j < gvl; ++j) {
             __epi_1xf64 v_m = __builtin_epi_vload_1xf64(&m(i, j), gvl);
-            __epi_1xf64 v_in = __builtin_epi_vload_1xf64(&in(j), gvl);
+            __epi_1xf64 v_in = __builtin_epi_vload_1xf64(in(j), gvl);
             v_sum = __builtin_epi_vfmacc_1xf64(v_m, v_in, v_sum, gvl);
         }
         __builtin_epi_vstore_1xf64(&out(i), negate_vector(v_sum, gvl), gvl);
@@ -56,8 +56,8 @@ inline fl scalar_product(const Change& a, const Change& b, sz n, const int gvl) 
     for (int i = 0; i < n; i += gvl) {
         __epi_1xf64 v_tmp = __builtin_epi_vbroadcast_1xf64(0.0, gvl);
         for (int j = 0; j < gvl; ++j) {
-            __epi_1xf64 v_a = __builtin_epi_vload_1xf64(&a(i + j), gvl);
-            __epi_1xf64 v_b = __builtin_epi_vload_1xf64(&b(i + j), gvl);
+            __epi_1xf64 v_a = __builtin_epi_vload_1xf64(a(i + j), gvl);
+            __epi_1xf64 v_b = __builtin_epi_vload_1xf64(b(i + j), gvl);
             v_tmp = __builtin_epi_vfmacc_1xf64(v_a, v_b, v_tmp, gvl);
         }
         tmp += __builtin_epi_vreduce_1xf64(v_tmp, gvl);
@@ -182,7 +182,5 @@ fl bfgs(F& f, Conf& x, Change& g, const unsigned max_steps, const fl average_req
 
     return f0;
 }
-
-#endif
 
 #endif

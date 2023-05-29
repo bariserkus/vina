@@ -30,21 +30,29 @@ typedef triangular_matrix<fl> flmat;
 template<typename Change>
 void minus_mat_vec_product(const flmat& m, const Change& in, Change& out, const int gvl) {
     sz n = m.dim();
-    VINA_FOR(i, n) {
-        fl sum = 0;
-#pragma clang loop vectorize(enable)
-        for (int j = 0; j < gvl; ++j)
-            sum += m(m.index_permissive(i, j)) * in(j);
-        out(i) = -sum;
+    for (int i = 0; i < n; i += gvl) {
+        __epi_1xf64 v_sum = __builtin_epi_vbrdcast_1xf64(0.0, gvl);
+        for (int j = 0; j < gvl; ++j) {
+            __epi_1xf64 v_m = __builtin_epi_vload_1xf64(&m(i, j), gvl);
+            __epi_1xf64 v_in = __builtin_epi_vload_1xf64(&in(j), gvl);
+            v_sum = __builtin_epi_vfmacc_1xf64(v_m, v_in, v_sum, gvl);
+        }
+        __builtin_epi_vstore_1xf64(&out(i), __builtin_epi_vneg_1xf64(v_sum, gvl), gvl);
     }
 }
 
 template<typename Change>
 inline fl scalar_product(const Change& a, const Change& b, sz n, const int gvl) {
     fl tmp = 0;
-#pragma clang loop vectorize(enable)
-    for (int i = 0; i < gvl; ++i)
-        tmp += a(i) * b(i);
+    for (int i = 0; i < n; i += gvl) {
+        __epi_1xf64 v_tmp = __builtin_epi_vbrdcast_1xf64(0.0, gvl);
+        for (int j = 0; j < gvl; ++j) {
+            __epi_1xf64 v_a = __builtin_epi_vload_1xf64(&a(i + j), gvl);
+            __epi_1xf64 v_b = __builtin_epi_vload_1xf64(&b(i + j), gvl);
+            v_tmp = __builtin_epi_vfmacc_1xf64(v_a, v_b, v_tmp, gvl);
+        }
+        tmp += __builtin_epi_vreduce_1xf64(v_tmp, gvl);
+    }
     return tmp;
 }
 
@@ -60,23 +68,31 @@ inline bool bfgs_update(flmat& h, const Change& p, const Change& y, const fl alp
     const fl r = 1 / (alpha * yp);
 
     const sz n = p.num_floats();
-    for (int i = 0; i < n; ++i) {
-        for (int j = i; j < n; ++j) {
-            h(i, j) += alpha * r * (minus_hy(i) * p(j) + minus_hy(j) * p(i))
-                       + alpha * alpha * (r * r * yhy + r) * p(i) * p(j);
+    for (int i = 0; i < n; i += gvl) {
+        __epi_1xf64 v_r = __builtin_epi_vbrdcast_1xf64(r, gvl);
+        for (int j = i; j < n; j += gvl) {
+            __epi_1xf64 v_minus_hy = __builtin_epi_vload_1xf64(&minus_hy(j), gvl);
+            __epi_1xf64 v_p = __builtin_epi_vload_1xf64(&p(i), gvl);
+            __epi_1xf64 v_p_transpose = __builtin_epi_vbrdcast_1xf64(p(j), gvl);
+            __epi_1xf64 v_h = __builtin_epi_vload_1xf64(&h(i, j), gvl);
+            __epi_1xf64 v_h_update = __builtin_epi_vfmacc_1xf64(v_minus_hy, v_p, v_h, gvl);
+            v_h_update = __builtin_epi_vfmacc_1xf64(v_minus_hy, v_p_transpose, v_h_update, gvl);
+            v_h_update = __builtin_epi_vfmacc_1xf64(v_p, v_p_transpose, v_h_update, gvl);
+            v_h_update = __builtin_epi_vfmacc_1xf64(v_h_update, __builtin_epi_vfmacc_1xf64(v_r, v_r, v_r, gvl), __builtin_epi_vbrdcast_1xf64(yhy, gvl), gvl);
+            __builtin_epi_vstore_1xf64(&h(i, j), v_h_update, gvl);
         }
     }
     return true;
 }
 
 template<typename F, typename Conf, typename Change>
-fl line_search(F& f, sz n, const Conf& x, const Change& g, const fl f0, const Change& p, Conf& x_new, Change& g_new, fl& f1, int& evalcount, const int gvl) {
+fl line_search(F& f, sz n, const Conf& x, const Change& g, const fl f0, const Change& p, Conf& x_new, Change& g_new, fl& f1, int& evalcount) {
     const fl c0 = 0.0001;
     const unsigned max_trials = 10;
     const fl multiplier = 0.5;
     fl alpha = 1;
 
-    const fl pg = scalar_product(p, g, n, gvl);
+    const fl pg = scalar_product(p, g, n, 1); // Scalar product, so gvl = 1
 
     VINA_U_FOR(trial, max_trials) {
         x_new = x;
@@ -90,7 +106,7 @@ fl line_search(F& f, sz n, const Conf& x, const Change& g, const fl f0, const Ch
     return alpha;
 }
 
-inline void set_diagonal(flmat& m, fl x) {
+inline void set_diagonal(flmat& m, fl x, const int gvl) {
     sz n = m.dim();
     for (int i = 0; i < n; ++i) {
         m(i, i) = x;
@@ -99,8 +115,7 @@ inline void set_diagonal(flmat& m, fl x) {
 
 template<typename Change>
 void subtract_change(Change& b, const Change& a, sz n, const int gvl) {
-#pragma clang loop vectorize(enable)
-    for (int i = 0; i < gvl; ++i)
+    for (int i = 0; i < n; ++i)
         b(i) -= a(i);
 }
 
@@ -109,7 +124,7 @@ fl bfgs(F& f, Conf& x, Change& g, const unsigned max_steps, const fl average_req
         int& evalcount) {
     sz n = g.num_floats();
     flmat h(n, 0);
-    set_diagonal(h, 1);
+    set_diagonal(h, 1, 1); // Scalar value, so gvl = 1
 
     Change g_new(g);
     Conf x_new(x);
@@ -126,30 +141,28 @@ fl bfgs(F& f, Conf& x, Change& g, const unsigned max_steps, const fl average_req
     f_values.reserve(max_steps + 1);
     f_values.push_back(f0);
 
-    const int gvl = __builtin_epi_vsetvl(n, __epi_e32, __epi_m1);
-
     VINA_U_FOR(step, max_steps) {
-        minus_mat_vec_product(h, g, p, gvl);
+        minus_mat_vec_product(h, g, p, 1); // Scalar product, so gvl = 1
         fl f1 = 0;
-        const fl alpha = line_search(f, n, x, g, f0, p, x_new, g_new, f1, evalcount, gvl);
+        const fl alpha = line_search(f, n, x, g, f0, p, x_new, g_new, f1, evalcount);
         Change y(g_new);
-        subtract_change(y, g, n, gvl);
+        subtract_change(y, g, n, 1); // Scalar product, so gvl = 1
 
         f_values.push_back(f1);
         f0 = f1;
         x = x_new;
-        if (!(std::sqrt(scalar_product(g, g, n, gvl)) >= 1e-5))
+        if (!(std::sqrt(scalar_product(g, g, n, 1)) >= 1e-5))
             break;
 
         g = g_new;
 
         if (step == 0) {
-            const fl yy = scalar_product(y, y, n, gvl);
+            const fl yy = scalar_product(y, y, n, 1); // Scalar product, so gvl = 1
             if (std::abs(yy) > epsilon_fl)
-                set_diagonal(h, alpha * scalar_product(y, p, n, gvl) / yy);
+                set_diagonal(h, alpha * scalar_product(y, p, n, 1) / yy, 1); // Scalar values, so gvl = 1
         }
 
-        bool h_updated = bfgs_update(h, p, y, alpha, gvl);
+        bool h_updated = bfgs_update(h, p, y, alpha, 1); // Scalar product, so gvl = 1
     }
 
     if (!(f0 <= f_orig)) {
@@ -160,5 +173,7 @@ fl bfgs(F& f, Conf& x, Change& g, const unsigned max_steps, const fl average_req
 
     return f0;
 }
+
+#endif
 
 #endif

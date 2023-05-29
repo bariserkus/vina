@@ -22,22 +22,31 @@
 
 #ifndef VINA_BFGS_H
 #define VINA_BFGS_H
-
 #include "matrix.h"
 
 typedef triangular_matrix<fl> flmat;
+
+void negate_vector(double* data, const int gvl) {
+    int n = gvl;
+    __epi_1xf64 v_neg_factor = __builtin_epi_vbroadcast_1xf64(-1.0);
+    for (int i = 0; i < n; ++i) {
+        __epi_1xf64 v_data = __builtin_epi_vload_1xf64(&data[i], gvl);
+        __epi_1xf64 v_negated = __builtin_epi_vfmul_1xf64(v_data, v_neg_factor);
+        __builtin_epi_vstore_1xf64(&data[i], v_negated, gvl);
+    }
+}
 
 template<typename Change>
 void minus_mat_vec_product(const flmat& m, const Change& in, Change& out, const int gvl) {
     sz n = m.dim();
     for (int i = 0; i < n; i += gvl) {
-        __epi_1xf64 v_sum = __builtin_epi_vbrdcast_1xf64(0.0, gvl);
+        __epi_1xf64 v_sum = __builtin_epi_vbroadcast_1xf64(0.0, gvl);
         for (int j = 0; j < gvl; ++j) {
             __epi_1xf64 v_m = __builtin_epi_vload_1xf64(&m(i, j), gvl);
             __epi_1xf64 v_in = __builtin_epi_vload_1xf64(&in(j), gvl);
             v_sum = __builtin_epi_vfmacc_1xf64(v_m, v_in, v_sum, gvl);
         }
-        __builtin_epi_vstore_1xf64(&out(i), __builtin_epi_vneg_1xf64(v_sum, gvl), gvl);
+        __builtin_epi_vstore_1xf64(&out(i), negate_vector(&v_sum, gvl), gvl);
     }
 }
 
@@ -45,7 +54,7 @@ template<typename Change>
 inline fl scalar_product(const Change& a, const Change& b, sz n, const int gvl) {
     fl tmp = 0;
     for (int i = 0; i < n; i += gvl) {
-        __epi_1xf64 v_tmp = __builtin_epi_vbrdcast_1xf64(0.0, gvl);
+        __epi_1xf64 v_tmp = __builtin_epi_vbroadcast_1xf64(0.0, gvl);
         for (int j = 0; j < gvl; ++j) {
             __epi_1xf64 v_a = __builtin_epi_vload_1xf64(&a(i + j), gvl);
             __epi_1xf64 v_b = __builtin_epi_vload_1xf64(&b(i + j), gvl);
@@ -69,16 +78,16 @@ inline bool bfgs_update(flmat& h, const Change& p, const Change& y, const fl alp
 
     const sz n = p.num_floats();
     for (int i = 0; i < n; i += gvl) {
-        __epi_1xf64 v_r = __builtin_epi_vbrdcast_1xf64(r, gvl);
+        __epi_1xf64 v_r = __builtin_epi_vbroadcast_1xf64(r, gvl);
         for (int j = i; j < n; j += gvl) {
             __epi_1xf64 v_minus_hy = __builtin_epi_vload_1xf64(&minus_hy(j), gvl);
             __epi_1xf64 v_p = __builtin_epi_vload_1xf64(&p(i), gvl);
-            __epi_1xf64 v_p_transpose = __builtin_epi_vbrdcast_1xf64(p(j), gvl);
+            __epi_1xf64 v_p_transpose = __builtin_epi_vbroadcast_1xf64(p(j), gvl);
             __epi_1xf64 v_h = __builtin_epi_vload_1xf64(&h(i, j), gvl);
             __epi_1xf64 v_h_update = __builtin_epi_vfmacc_1xf64(v_minus_hy, v_p, v_h, gvl);
             v_h_update = __builtin_epi_vfmacc_1xf64(v_minus_hy, v_p_transpose, v_h_update, gvl);
             v_h_update = __builtin_epi_vfmacc_1xf64(v_p, v_p_transpose, v_h_update, gvl);
-            v_h_update = __builtin_epi_vfmacc_1xf64(v_h_update, __builtin_epi_vfmacc_1xf64(v_r, v_r, v_r, gvl), __builtin_epi_vbrdcast_1xf64(yhy, gvl), gvl);
+            v_h_update = __builtin_epi_vfmacc_1xf64(v_h_update, __builtin_epi_vfmacc_1xf64(v_r, v_r, v_r, gvl), __builtin_epi_vbroadcast_1xf64(yhy, gvl), gvl);
             __builtin_epi_vstore_1xf64(&h(i, j), v_h_update, gvl);
         }
     }

@@ -166,7 +166,7 @@ LIBOBJ_H = H_ad4cache.o H_cache.o H_non_cache.o H_conf_independent.o H_coords.o 
 MAINOBJ_H = H_main.o
 
 #all: vina_A
-all: vina_A vina_B vina_C vina_D vina_E vina_F vina_G vina_H
+all: vina_A vina_B vina_C vina_D vina_E
 
 #First Built
 A_%.o : ../../../src/lib/%.cpp

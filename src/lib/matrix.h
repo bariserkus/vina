@@ -78,7 +78,7 @@ public:
 	sz index(sz i, sz j) const { return triangular_matrix_index(m_dim, i, j); }
 	sz index_permissive(sz i, sz j) const { return (i < j) ? index(i, j) : index(j, i); }
 	triangular_matrix() : m_dim(0) {}
-	triangular_matrix(sz n, const T& filler_val) : m_data(n*(n+1)/2, filler_val), m_dim(n) {} 
+	triangular_matrix(sz n, const T& filler_val) : m_data(n*(n+1)/2, filler_val), m_dim(n) {}
 	VINA_MATRIX_DEFINE_OPERATORS // temp macro defined above
 	sz dim() const { return m_dim; }
 };

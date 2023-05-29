@@ -91,7 +91,7 @@ fl line_search(F& f, sz n, const Conf& x, const Change& g, const fl f0, const Ch
 
 inline void set_diagonal(flmat& m, fl x, const int gvl) {
     VINA_FOR(i, m.dim())
-        m(i, i, gvl) = x;
+        m(i, i) = x;
 }
 
 template<typename Change>

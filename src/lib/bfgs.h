@@ -70,7 +70,7 @@ inline bool bfgs_update(flmat& h, const Change& p, const Change& y, const fl alp
 }
 
 template<typename F, typename Conf, typename Change>
-fl line_search(F& f, sz n, const Conf& x, const Change& g, const fl f0, const Change& p, Conf& x_new, Change& g_new, fl& f1) {
+fl line_search(F& f, sz n, const Conf& x, const Change& g, const fl f0, const Change& p, Conf& x_new, Change& g_new, fl& f1, int& evalcount) {
     const fl c0 = 0.0001;
     const unsigned max_trials = 10;
     const fl multiplier = 0.5;
@@ -82,6 +82,7 @@ fl line_search(F& f, sz n, const Conf& x, const Change& g, const fl f0, const Ch
         x_new = x;
         x_new.increment(p, alpha);
         f1 = f(x_new, g_new);
+        evalcount++;
         if (f1 - f0 < c0 * alpha * pg)
             break;
         alpha *= multiplier;
@@ -89,9 +90,11 @@ fl line_search(F& f, sz n, const Conf& x, const Change& g, const fl f0, const Ch
     return alpha;
 }
 
-inline void set_diagonal(flmat& m, fl x) {
-    VINA_FOR(i, m.dim())
+inline void set_diagonal(flmat& m, fl x, const int gvl) {
+    sz n = m.dim();
+    for (int i = 0; i < n; ++i) {
         m(i, i) = x;
+    }
 }
 
 template<typename Change>
@@ -100,8 +103,10 @@ void subtract_change(Change& b, const Change& a, sz n, const int gvl) {
     for (int i = 0; i < gvl; ++i)
         b(i) -= a(i);
 }
+
 template<typename F, typename Conf, typename Change>
-fl bfgs(F& f, Conf& x, Change& g, const unsigned max_steps, const fl average_required_improvement, const sz over) {
+fl bfgs(F& f, Conf& x, Change& g, const unsigned max_steps, const fl average_required_improvement, const sz over,
+        int& evalcount) {
     sz n = g.num_floats();
     flmat h(n, 0);
     set_diagonal(h, 1);
@@ -109,6 +114,7 @@ fl bfgs(F& f, Conf& x, Change& g, const unsigned max_steps, const fl average_req
     Change g_new(g);
     Conf x_new(x);
     fl f0 = f(x, g);
+    evalcount++;
 
     fl f_orig = f0;
     Change g_orig(g);
@@ -120,20 +126,18 @@ fl bfgs(F& f, Conf& x, Change& g, const unsigned max_steps, const fl average_req
     f_values.reserve(max_steps + 1);
     f_values.push_back(f0);
 
-    // Get GVL parameter
-    const int gvl = __builtin_epi_vsetvl(n, __epi_e32, __epi_m1);
-
     VINA_U_FOR(step, max_steps) {
-        minus_mat_vec_product(h, g, p, gvl);
+        minus_mat_vec_product(h, g, p);
         fl f1 = 0;
-        const fl alpha = line_search(f, n, x, g, f0, p, x_new, g_new, f1);
+        const fl alpha = line_search(f, n, x, g, f0, p, x_new, g_new, f1, evalcount);
         Change y(g_new);
-        subtract_change(y, g, n, gvl);
+        subtract_change(y, g, n);
 
         f_values.push_back(f1);
         f0 = f1;
         x = x_new;
-        if (!(std::sqrt(scalar_product(g, g, n, gvl)) >= 1e-5)) break;
+        if (!(std::sqrt(scalar_product(g, g, n, gvl)) >= 1e-5))
+            break;
 
         g = g_new;
 

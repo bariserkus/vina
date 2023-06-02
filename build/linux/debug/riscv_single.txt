@@ -1,0 +1,2 @@
+Make Type : riscv64_As : Floating Point : d : Utilized Cores : 2 : Max. Cores : 4 : Wall time (sec) : 419.385 : CPU Time (sec) : 723 : Date and Time : Fri Jun  2 08:43:48 2023
+Make Type : riscv64_As : Floating Point : d : Utilized Cores : 4 : Max. Cores : 4 : Wall time (sec) : 262.708 : CPU Time (sec) : 751 : Date and Time : Fri Jun  2 08:50:48 2023

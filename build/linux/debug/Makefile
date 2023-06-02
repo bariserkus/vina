@@ -34,7 +34,7 @@ else ifeq ($(CPU),riscv64)
 
   #First Built:
   GPP_As=clang++
-  C_OPTIONS_As= -g -std=c++14 -O3 -fno-vectorize -march=rv64g -mepi -mcpu=avispado -Rpass=loop-vectorize -Rpass-analysis=loop-vectorize
+  C_OPTIONS_As= -g -std=c++14 -O3 /MP -fno-vectorize -march=rv64g -mepi -mcpu=avispado -Rpass=loop-vectorize -Rpass-analysis=loop-vectorize
   C_OPTIONS_As+=-DVERSION=\"$(GIT_VERSION)\"
   C_OPTIONS_As+=-DMAKETYPE=\"$(CPU)_As\"
   C_OPTIONS_As+=-DFLTYPE=double

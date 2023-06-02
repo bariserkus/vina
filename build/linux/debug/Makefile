@@ -19,45 +19,245 @@ ifeq ($(CPU),x86_64)
   LDFLAGS= -L$(BASE)/lib -L.
 
   #First Built:
-  GPP_As=clang++
-  C_OPTIONS_As= -g -std=c++14 -O3
-  C_OPTIONS_As+=-DVERSION=\"$(GIT_VERSION)\"
-  C_OPTIONS_As+=-DMAKETYPE=\"$(CPU)_As\"
-  C_OPTIONS_As+=-DFLTYPE=double
-  CC_As = ${GPP_As} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_As} $(INCFLAGS)
+  GPP_A=g++
+  C_OPTIONS_A= -g -std=c++14 -O3
+  C_OPTIONS_A+=-DVERSION=\"$(GIT_VERSION)\"
+  C_OPTIONS_A+=-DMAKETYPE=\"$(CPU)_A\"
+  C_OPTIONS_A+=-DFLTYPE=double
+  CC_A = ${GPP_A} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_A} $(INCFLAGS)
   ########
 
+  #Second Built:
+  GPP_B=icpx
+  C_OPTIONS_B= -g -std=c++14 -O3
+  C_OPTIONS_B+=-DVERSION=\"$(GIT_VERSION)\"
+  C_OPTIONS_B+=-DMAKETYPE=\"$(CPU)_B\"
+  C_OPTIONS_B+=-DFLTYPE=double
+  CC_B = ${GPP_B} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_B} $(INCFLAGS)
+  ########
+
+  #Third Built:
+  GPP_C=clang++
+  C_OPTIONS_C= -g -std=c++14 -O3
+  C_OPTIONS_C+=-DVERSION=\"$(GIT_VERSION)\"
+  C_OPTIONS_C+=-DMAKETYPE=\"$(CPU)_C\"
+  C_OPTIONS_C+=-DFLTYPE=double
+  CC_C = ${GPP_C} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_C} $(INCFLAGS)
+  ########
+
+  #Fourth Built:
+  GPP_D=g++
+  C_OPTIONS_D= -g -std=c++14
+  C_OPTIONS_D+=-DVERSION=\"$(GIT_VERSION)\"
+  C_OPTIONS_D+=-DMAKETYPE=\"$(CPU)_D\"
+  C_OPTIONS_D+=-DFLTYPE=double
+  CC_D = ${GPP_D} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_D} $(INCFLAGS)
+  ########
+
+  #Fifth Built:
+  GPP_E=icpx
+  C_OPTIONS_E= -g -std=c++14
+  C_OPTIONS_E+=-DVERSION=\"$(GIT_VERSION)\"
+  C_OPTIONS_E+=-DMAKETYPE=\"$(CPU)_E\"
+  C_OPTIONS_E+=-DFLTYPE=double
+  CC_E = ${GPP_E} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_E} $(INCFLAGS)
+  ########
+
+  #Sixth Built:
+  GPP_F=clang++
+  C_OPTIONS_F= -g -std=c++14
+  C_OPTIONS_F+=-DVERSION=\"$(GIT_VERSION)\"
+  C_OPTIONS_F+=-DMAKETYPE=\"$(CPU)_F\"
+  C_OPTIONS_F+=-DFLTYPE=double
+  CC_F = ${GPP_F} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_F} $(INCFLAGS)
+  ########
+
+  #Seventh Built:
+  GPP_G=icpx
+  C_OPTIONS_G= -g -std=c++14 -O3 -xHost
+  C_OPTIONS_G+=-DVERSION=\"$(GIT_VERSION)\"
+  C_OPTIONS_G+=-DMAKETYPE=\"$(CPU)_G\"
+  C_OPTIONS_G+=-DFLTYPE=double
+  CC_G = ${GPP_G} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_G} $(INCFLAGS)
+  ########
+
+  #Eight Built:
+  GPP_H=icpx
+  C_OPTIONS_H= -g -std=c++14 -xHost
+  C_OPTIONS_H+=-DVERSION=\"$(GIT_VERSION)\"
+  C_OPTIONS_H+=-DMAKETYPE=\"$(CPU)_H\"
+  C_OPTIONS_H+=-DFLTYPE=double
+  CC_H = ${GPP_H} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_H} $(INCFLAGS)
+  ########
 else
   BOOST_INCLUDE=/home/aali2/include
   INCFLAGS = -I $(BOOST_INCLUDE)
   LDFLAGS= -L$(BASE)/lib -L. -L/home/aali2/lib
 
   #First Built:
-  GPP_As=clang++
-  C_OPTIONS_As= -g -std=c++14 -O3 -fno-vectorize -march=rv64g -mepi -mcpu=avispado -Rpass=loop-vectorize -Rpass-analysis=loop-vectorize
-  C_OPTIONS_As+=-DVERSION=\"$(GIT_VERSION)\"
-  C_OPTIONS_As+=-DMAKETYPE=\"$(CPU)_As\"
-  C_OPTIONS_As+=-DFLTYPE=double
-  CC_As = ${GPP_As} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_As} $(INCFLAGS)
+  GPP_A=g++
+  C_OPTIONS_A= -g -std=c++14 -O3
+  C_OPTIONS_A+=-DVERSION=\"$(GIT_VERSION)\"
+  C_OPTIONS_A+=-DMAKETYPE=\"$(CPU)_A\"
+  C_OPTIONS_A+=-DFLTYPE=double
+  CC_A = ${GPP_A} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_A} $(INCFLAGS)
   #######
+
+  #Second Built:
+  GPP_B=clang++
+  C_OPTIONS_B= -g -std=c++14 -O3 -march=rv64g -mepi -fno-vectorize -mcpu=avispado -Rpass=loop-vectorize -Rpass-analysis=loop-vectorize
+  C_OPTIONS_B+=-DVERSION=\"$(GIT_VERSION)\"
+  C_OPTIONS_B+=-DMAKETYPE=\"$(CPU)_B\"
+  C_OPTIONS_B+=-DFLTYPE=double
+  CC_B = ${GPP_B} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_B} $(INCFLAGS)
+  #####
+
+  #Third Built:
+  GPP_C=clang++
+  C_OPTIONS_C= -g -std=c++14 -O3 -march=rv64g -mepi -mcpu=avispado -Rpass=loop-vectorize -Rpass-analysis=loop-vectorize
+  C_OPTIONS_C+=-DVERSION=\"$(GIT_VERSION)\"
+  C_OPTIONS_C+=-DMAKETYPE=\"$(CPU)_C\"
+  C_OPTIONS_C+=-DFLTYPE=double
+  CC_C = ${GPP_C} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_C} $(INCFLAGS)
+  #####
+
+  #Fourth Built:
+  GPP_D=g++
+  C_OPTIONS_D= -g -std=c++14
+  C_OPTIONS_D+=-DVERSION=\"$(GIT_VERSION)\"
+  C_OPTIONS_D+=-DMAKETYPE=\"$(CPU)_D\"
+  C_OPTIONS_D+=-DFLTYPE=double
+  CC_D = ${GPP_D} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_D} $(INCFLAGS)
+  #####
+
+  #Fourth Built:
+  GPP_E=clang++
+  C_OPTIONS_E= -g -std=c++14 -march=rv64g -mepi -mcpu=avispado -Rpass=loop-vectorize -Rpass-analysis=loop-vectorize
+  C_OPTIONS_E+=-DVERSION=\"$(GIT_VERSION)\"
+  C_OPTIONS_E+=-DMAKETYPE=\"$(CPU)_E\"
+  C_OPTIONS_E+=-DFLTYPE=double
+  CC_E = ${GPP_E} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_E} $(INCFLAGS)
+  #####
+
 endif
 
-LIBOBJ_As= As_ad4cache.o As_cache.o As_non_cache.o As_conf_independent.o As_coords.o As_grid.o As_szv_grid.o As_model.o As_monte_carlo.o As_mutate.o As_parallel_mc.o As_parse_pdbqt.o As_quasi_newton.o As_quaternion.o As_random.o As_utils.o As_vina.o
-MAINOBJ_As = As_main.o
+LIBOBJ_A = A_ad4cache.o A_cache.o A_non_cache.o A_conf_independent.o A_coords.o A_grid.o A_szv_grid.o A_model.o A_monte_carlo.o A_mutate.o A_parallel_mc.o A_parse_pdbqt.o A_quasi_newton.o A_quaternion.o A_random.o A_utils.o A_vina.o
+MAINOBJ_A = A_main.o
 
-all: vina_As
+LIBOBJ_B = B_ad4cache.o B_cache.o B_non_cache.o B_conf_independent.o B_coords.o B_grid.o B_szv_grid.o B_model.o B_monte_carlo.o B_mutate.o B_parallel_mc.o B_parse_pdbqt.o B_quasi_newton.o B_quaternion.o B_random.o B_utils.o B_vina.o
+MAINOBJ_B = B_main.o
+
+LIBOBJ_C = C_ad4cache.o C_cache.o C_non_cache.o C_conf_independent.o C_coords.o C_grid.o C_szv_grid.o C_model.o C_monte_carlo.o C_mutate.o C_parallel_mc.o C_parse_pdbqt.o C_quasi_newton.o C_quaternion.o C_random.o C_utils.o C_vina.o
+MAINOBJ_C = C_main.o
+
+LIBOBJ_D = D_ad4cache.o D_cache.o D_non_cache.o D_conf_independent.o D_coords.o D_grid.o D_szv_grid.o D_model.o D_monte_carlo.o D_mutate.o D_parallel_mc.o D_parse_pdbqt.o D_quasi_newton.o D_quaternion.o D_random.o D_utils.o D_vina.o
+MAINOBJ_D = D_main.o
+
+LIBOBJ_E = E_ad4cache.o E_cache.o E_non_cache.o E_conf_independent.o E_coords.o E_grid.o E_szv_grid.o E_model.o E_monte_carlo.o E_mutate.o E_parallel_mc.o E_parse_pdbqt.o E_quasi_newton.o E_quaternion.o E_random.o E_utils.o E_vina.o
+MAINOBJ_E = E_main.o
+
+LIBOBJ_F = F_ad4cache.o F_cache.o F_non_cache.o F_conf_independent.o F_coords.o F_grid.o F_szv_grid.o F_model.o F_monte_carlo.o F_mutate.o F_parallel_mc.o F_parse_pdbqt.o F_quasi_newton.o F_quaternion.o F_random.o F_utils.o F_vina.o
+MAINOBJ_F = F_main.o
+
+LIBOBJ_G = G_ad4cache.o G_cache.o G_non_cache.o G_conf_independent.o G_coords.o G_grid.o G_szv_grid.o G_model.o G_monte_carlo.o G_mutate.o G_parallel_mc.o G_parse_pdbqt.o G_quasi_newton.o G_quaternion.o G_random.o G_utils.o G_vina.o
+MAINOBJ_G = G_main.o
+
+LIBOBJ_H = H_ad4cache.o H_cache.o H_non_cache.o H_conf_independent.o H_coords.o H_grid.o H_szv_grid.o H_model.o H_monte_carlo.o H_mutate.o H_parallel_mc.o H_parse_pdbqt.o H_quasi_newton.o H_quaternion.o H_random.o H_utils.o H_vina.o
+MAINOBJ_H = H_main.o
+
+#all: vina_A
+all: vina_A vina_B vina_C vina_D vina_E
 
 #First Built
-As_%.o : ../../../src/lib/%.cpp
-	$(CC_As) -o $@ -c $<
+A_%.o : ../../../src/lib/%.cpp
+	$(CC_A) -o $@ -c $<
 
-As_%.o : ../../../src/main/main.cpp
-	$(CC_As) -I ../../../src/lib -o $@ -c $<
+A_%.o : ../../../src/main/main.cpp
+	$(CC_A) -I ../../../src/lib -o $@ -c $<
 
-vina_As: $(MAINOBJ_As) $(LIBOBJ_As)
-	$(CC_As) $(LDFLAGS) -o $@ $^ $(LIBS)
+vina_A: $(MAINOBJ_A) $(LIBOBJ_A)
+	$(CC_A) $(LDFLAGS) -o $@ $^ $(LIBS)
 ###########
 
+#Second Built
+B_%.o : ../../../src/lib/%.cpp
+	$(CC_B) -o $@ -c $<
+
+B_%.o : ../../../src/main/main.cpp
+	$(CC_B) -I ../../../src/lib -o $@ -c $<
+
+vina_B: $(MAINOBJ_B) $(LIBOBJ_B)
+	$(CC_B) $(LDFLAGS) -o $@ $^ $(LIBS)
+############
+
+#Third Built
+C_%.o : ../../../src/lib/%.cpp
+	$(CC_C) -o $@ -c $<
+
+C_%.o : ../../../src/main/main.cpp
+	$(CC_C) -I ../../../src/lib -o $@ -c $<
+
+vina_C: $(MAINOBJ_C) $(LIBOBJ_C)
+	$(CC_C) $(LDFLAGS) -o $@ $^ $(LIBS)
+############
+
+#Fourth Built
+D_%.o : ../../../src/lib/%.cpp
+	$(CC_D) -o $@ -c $<
+
+D_%.o : ../../../src/main/main.cpp
+	$(CC_D) -I ../../../src/lib -o $@ -c $<
+
+vina_D: $(MAINOBJ_D) $(LIBOBJ_D)
+	$(CC_D) $(LDFLAGS) -o $@ $^ $(LIBS)
+############
+
+#Fifth Built
+E_%.o : ../../../src/lib/%.cpp
+	$(CC_E) -o $@ -c $<
+
+E_%.o : ../../../src/main/main.cpp
+	$(CC_E) -I ../../../src/lib -o $@ -c $<
+
+vina_E: $(MAINOBJ_E) $(LIBOBJ_E)
+	$(CC_E) $(LDFLAGS) -o $@ $^ $(LIBS)
+############
+
+
+#Sixth Built
+F_%.o : ../../../src/lib/%.cpp
+	$(CC_F) -o $@ -c $<
+
+F_%.o : ../../../src/main/main.cpp
+	$(CC_F) -I ../../../src/lib -o $@ -c $<
+
+vina_F: $(MAINOBJ_F) $(LIBOBJ_F)
+	$(CC_F) $(LDFLAGS) -o $@ $^ $(LIBS)
+############
+
+
+#Seventh Built
+G_%.o : ../../../src/lib/%.cpp
+	$(CC_G) -o $@ -c $<
+
+G_%.o : ../../../src/main/main.cpp
+	$(CC_G) -I ../../../src/lib -o $@ -c $<
+
+vina_G: $(MAINOBJ_G) $(LIBOBJ_G)
+	$(CC_G) $(LDFLAGS) -o $@ $^ $(LIBS)
+############
+
+
+#Eighth Built
+H_%.o : ../../../src/lib/%.cpp
+	$(CC_H) -o $@ -c $<
+
+H_%.o : ../../../src/main/main.cpp
+	$(CC_H) -I ../../../src/lib -o $@ -c $<
+
+vina_H: $(MAINOBJ_H) $(LIBOBJ_H)
+	$(CC_H) $(LDFLAGS) -o $@ $^ $(LIBS)
+############
 clean:
-	rm -f As_*.o
-	rm -f vina_As
+	rm -f *.o
+	rm -f vina_A vina_B vina_C vina_D vina_E vina_F vina_G vina_H

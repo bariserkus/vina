@@ -32,6 +32,7 @@ void minus_mat_vec_product(const flmat& m, const Change& in, Change& out) {
 	sz n = m.dim();
 	VINA_FOR(i, n) {
 		fl sum = 0;
+    #pragma clang loop vectorize(enable)
 		VINA_FOR(j, n)
 			sum += m(m.index_permissive(i, j)) * in(j);
 		out(i) = -sum;
@@ -55,6 +56,7 @@ inline bool bfgs_update(flmat& h, const Change& p, const Change& y, const fl alp
 	const fl r = 1 / (alpha * yp); // 1 / (s^T * y) , where s = alpha * p // FIXME   ... < epsilon
 	const sz n = p.num_floats();
 	VINA_FOR(i, n)
+    #pragma clang loop vectorize(enable)
 		VINA_RANGE(j, i, n) // includes i
 			h(i, j) +=   alpha * r * (minus_hy(i) * p(j)
 	                                + minus_hy(j) * p(i)) +
@@ -71,6 +73,7 @@ fl line_search(F& f, sz n, const Conf& x, const Change& g, const fl f0, const Ch
 
 	const fl pg = scalar_product(p, g, n);
 
+    #pragma clang loop vectorize(enable)
 	VINA_U_FOR(trial, max_trials) {
 		x_new = x; x_new.increment(p, alpha);
 		f1 = f(x_new, g_new);
@@ -114,6 +117,7 @@ fl bfgs(F& f, Conf& x, Change& g, const unsigned max_steps, const fl average_req
 	flv f_values; f_values.reserve(max_steps+1);
 	f_values.push_back(f0);
 
+    #pragma clang loop vectorize(enable)
 	VINA_U_FOR(step, max_steps) {
 		minus_mat_vec_product(h, g, p);
 		fl f1 = 0;

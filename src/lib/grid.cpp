@@ -45,6 +45,7 @@ fl grid::evaluate_aux(const vec& location, fl slope, fl v, vec* deriv) const { /
 	boost::array<int, 3> region;
 	boost::array<sz, 3> a;
 
+    #pragma clang loop vectorize(enable)
 	VINA_FOR(i, 3) {
 		if(s[i] < 0) {
 			miss[i] = -s[i];

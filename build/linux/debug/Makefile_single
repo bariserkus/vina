@@ -27,7 +27,7 @@ ifeq ($(CPU),x86_64)
   CC_As = ${GPP_As} ${C_PLATFORM} -ansi -Wno-long-long ${C_OPTIONS_As} $(INCFLAGS)
   ########
 
-else
+else ifeq ($(CPU),riscv64)
   BOOST_INCLUDE=/home/aali2/include
   INCFLAGS = -I $(BOOST_INCLUDE)
   LDFLAGS= -L$(BASE)/lib -L. -L/home/aali2/lib

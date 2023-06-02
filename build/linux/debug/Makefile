@@ -45,7 +45,7 @@ endif
 LIBOBJ_As= As_ad4cache.o As_cache.o As_non_cache.o As_conf_independent.o As_coords.o As_grid.o As_szv_grid.o As_model.o As_monte_carlo.o As_mutate.o As_parallel_mc.o As_parse_pdbqt.o As_quasi_newton.o As_quaternion.o As_random.o As_utils.o As_vina.o
 MAINOBJ_As = As_main.o
 
-all: vina_As
+all: vina_As_orig
 
 #First Built
 As_%.o : ../../../src/lib/%.cpp
@@ -54,10 +54,10 @@ As_%.o : ../../../src/lib/%.cpp
 As_%.o : ../../../src/main/main.cpp
 	$(CC_As) -I ../../../src/lib -o $@ -c $<
 
-vina_As: $(MAINOBJ_As) $(LIBOBJ_As)
+vina_As_orig: $(MAINOBJ_As) $(LIBOBJ_As)
 	$(CC_As) $(LDFLAGS) -o $@ $^ $(LIBS)
 ###########
 
 clean:
 	rm -f As_*.o
-	rm -f vina_As
+	rm -f vina_As_orig

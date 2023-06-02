@@ -2,8 +2,8 @@
 
 CPU=$(uname -p)
 
-X86_TARGETS=("vina_As")
-RISCV_TARGETS=("vina_As")
+X86_TARGETS=("vina_As_orig")
+RISCV_TARGETS=("vina_As_orig")
 
 CONF_FILE="conf.txt"
 X86_CORES=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12")
